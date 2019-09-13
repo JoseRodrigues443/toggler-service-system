@@ -1,0 +1,130 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TogglerApi</name>
+    </assembly>
+    <members>
+        <member name="P:TogglerApi.Context.ToggleContext.Toggles">
+            <summary>
+            Toggles in system
+            </summary>
+            <value></value>
+        </member>
+        <member name="M:TogglerApi.Context.ToggleContext.SaveChanges(System.Boolean)">
+            <summary>
+            Save Changes
+            </summary>
+            <param name="acceptAllChangesOnSuccess"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TogglerApi.Context.ToggleContext.SaveChangesAsync(System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            
+            </summary>
+            <param name="acceptAllChangesOnSuccess"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TogglerApi.Context.ToggleContext.OnBeforeSaving">
+            <summary>
+            Alters the instance to add tracking columns
+            </summary>
+        </member>
+        <member name="F:TogglerApi.Controllers.ToggleController._toggleContext">
+            <summary>
+            Toggle context to the database
+            </summary>
+        </member>
+        <member name="M:TogglerApi.Controllers.ToggleController.#ctor(TogglerApi.Context.ToggleContext)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="P:TogglerApi.Models.ITrackable.CreatedAt">
+            <summary>
+            When was the instance created
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:TogglerApi.Models.ITrackable.UpdatedAt">
+            <summary>
+            When was the instance updated
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:TogglerApi.Models.Toggle.Feature.Id">
+            <summary>
+            Identifier
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:TogglerApi.Models.Toggle.Feature.Key">
+            <summary>
+            Feature Identifier
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:TogglerApi.Models.Toggle.Feature.Description">
+            <summary>
+            Feature Description
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:TogglerApi.Models.Toggle.Feature.Toggles">
+            <summary>
+            Toggles related to a given featureF
+            </summary>
+            <typeparam name="Toggle"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="P:TogglerApi.Models.Toggle.Feature.CreatedAt">
+            <summary>
+            When was created
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:TogglerApi.Models.Toggle.Feature.UpdatedAt">
+            <summary>
+            When was updated
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:TogglerApi.Models.Toggle.Toggle.Id">
+            <summary>
+            Identifier
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:TogglerApi.Models.Toggle.Toggle.Key">
+            <summary>
+            Toggle Identifier
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:TogglerApi.Models.Toggle.Toggle.Description">
+            <summary>
+            Toggle Description
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:TogglerApi.Models.Toggle.Toggle.Value">
+            <summary>
+            The toggle current value
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:TogglerApi.Models.Toggle.Toggle.CreatedAt">
+            <summary>
+            When was created
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:TogglerApi.Models.Toggle.Toggle.UpdatedAt">
+            <summary>
+            When was updated
+            </summary>
+            <value></value>
+        </member>
+    </members>
+</doc>

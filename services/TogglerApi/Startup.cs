@@ -10,6 +10,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.EntityFrameworkCore;
+using TogglerApi.Context;
+
 
 namespace TogglerApi
 {
@@ -28,7 +31,32 @@ namespace TogglerApi
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             // Register the Swagger services
-            services.AddSwaggerDocument();
+            services.AddSwaggerDocument(config =>
+                {
+                    config.PostProcess = document =>
+                    {
+                        document.Info.Version = "v1";
+                        document.Info.Title = "Toggler API";
+                        document.Info.Description = "A toggler API ASP.NET Core web API";
+                        document.Info.TermsOfService = "None";
+                        document.Info.Contact = new NSwag.OpenApiContact
+                        {
+                            Name = "José Miguel Rodrigues",
+                            Email = "josemiguel443@gmail.com",
+                            Url = "https://joserodrigues443.github.io"
+                        };
+                        document.Info.License = new NSwag.OpenApiLicense
+                        {
+                            Name = "Use under GPL 3",
+                            Url = "https://www.gnu.org/licenses/gpl-3.0.en.html"
+                        };
+                    };
+                });
+
+            // Register Database context
+            services.AddDbContext<ToggleContext>(opt =>
+                opt.UseInMemoryDatabase("ToggleList"));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

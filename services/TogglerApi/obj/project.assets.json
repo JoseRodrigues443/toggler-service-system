@@ -12389,7 +12389,7 @@
       "Microsoft.AspNetCore.App >= 2.2.0",
       "Microsoft.AspNetCore.Razor.Design >= 2.2.0",
       "Microsoft.NETCore.App >= 2.2.0",
-      "NSwag.AspNetCore"
+      "NSwag.AspNetCore >= 13.0.6"
     ]
   },
   "packageFolders": {
@@ -12399,11 +12399,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\jmrodrigues\\Documents\\GIT\\TogglerServiceSystem\\services\\TogglerApi\\TogglerApi.csproj",
+      "projectUniqueName": "c:\\Users\\jmrodrigues\\Documents\\GIT\\TogglerServiceSystem\\services\\TogglerApi\\TogglerApi.csproj",
       "projectName": "TogglerApi",
-      "projectPath": "C:\\Users\\jmrodrigues\\Documents\\GIT\\TogglerServiceSystem\\services\\TogglerApi\\TogglerApi.csproj",
+      "projectPath": "c:\\Users\\jmrodrigues\\Documents\\GIT\\TogglerServiceSystem\\services\\TogglerApi\\TogglerApi.csproj",
       "packagesPath": "C:\\Users\\jmrodrigues\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\jmrodrigues\\Documents\\GIT\\TogglerServiceSystem\\services\\TogglerApi\\obj\\",
+      "outputPath": "c:\\Users\\jmrodrigues\\Documents\\GIT\\TogglerServiceSystem\\services\\TogglerApi\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -12450,7 +12450,7 @@
           },
           "NSwag.AspNetCore": {
             "target": "Package",
-            "version": "(, )"
+            "version": "[13.0.6, )"
           }
         },
         "imports": [

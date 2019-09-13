@@ -11,4 +11,9 @@
     <PackageReference Include="NSwag.AspNetCore" Version="13.0.6" />
   </ItemGroup>
 
+  <PropertyGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);1591</NoWarn>
+  </PropertyGroup>
+
 </Project>
