@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Home from './Home';
+import ToggleManager from './ToggleManager';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
-  ReactDOM.render(<App />, div);
+  ReactDOM.render(<ToggleManager />, div);
   ReactDOM.unmountComponentAtNode(div);
 });

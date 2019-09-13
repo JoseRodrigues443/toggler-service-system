@@ -1,8 +1,7 @@
 import React from 'react';
-import './Home.css';
 
 // Components
-import { Jumbotron, Container } from "react-bootstrap";
+import TogglerList from "../../components/togglerList/TogglerList"
 
 const Home: React.FC = (props) => {
   return (
