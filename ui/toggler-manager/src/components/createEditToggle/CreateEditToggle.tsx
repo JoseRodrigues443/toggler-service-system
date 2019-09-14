@@ -1,15 +1,15 @@
 import React, { Component } from 'react'; // let's also import Component
 
-import { ToggleClient, Toggle } from "../../sdk/togglerApiClient/TogglerApi"
+import { ToggleClient, Toggle, IToggle } from "../../sdk/togglerApiClient/TogglerApi"
 
 // Components
-import { Form } from 'react-bootstrap'
+import { Form, Button, Row, Col } from 'react-bootstrap'
 
 
 /**
  * Toggle manager
  */
-export class CreateEditToggle extends Component {
+export class CreateEditToggle extends Component<{}, IToggle> {
 
     /**
      * Toggle client of toggler list
@@ -17,9 +17,52 @@ export class CreateEditToggle extends Component {
     public readonly toggleClient = new ToggleClient();
 
     /**
-     * Toggle of create edit toggle
+     * Creates an instance of create edit toggle.
      */
-    public toggle: Toggle = new Toggle();
+    constructor(props: any) {
+        super(props);
+        this.state = {
+            id: -1,
+            createdAt: new Date(),
+            updatedAt: new Date(),
+            description: "",
+            key: "",
+            states: []
+        }
+    }
+
+    /**
+     * Handle submit of create edit toggle
+     */
+    handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        const form = event.currentTarget;
+        if (this.state.key != null && this.state.key.length > 0 && form.checkValidity() === true) {
+            const result = await this.toggleClient.post(new Toggle({
+                id: this.state.id,
+                createdAt: this.state.createdAt,
+                updatedAt: this.state.updatedAt,
+                description: this.state.description,
+                key: this.state.key
+            }));
+        }
+    }
+
+    /**
+     * Handles key change
+     * @param event
+     */
+    handleKeyChange = (event: any) => {
+        this.setState({ key: event.target.value });
+    }
+
+    /**
+     * Handle description change of create edit toggle
+     */
+    handleDescriptionChange = (event: any) =>  {
+        this.setState({ description: event.target.value });
+    }
+
+
 
 
     /**
@@ -30,18 +73,36 @@ export class CreateEditToggle extends Component {
         return (
             <div>
                 <h1>Create Toggle</h1>
-                <Form>
-                    <Form.Group controlId="formKey">
-                        <Form.Label>Key</Form.Label>
-                        <Form.Control value={this.toggle.key} type="text" placeholder="Enter Toggle Key Identifier" required />
-                        <Form.Text className="text-muted">
-                            Used used to identify the toggle
-                        </Form.Text>
+                <Form onSubmit={this.handleSubmit}>
+                    <Form.Group as={Row} controlId="formKey">
+                        <Form.Label column sm="2">
+                            Key
+                        </Form.Label>
+                        <Col sm="10">
+                            <Form.Control value={this.state.key} onChange={this.handleKeyChange}
+                                type="text" placeholder="Enter Toggle Key Identifier" required
+                            />
+                            <Form.Text className="text-muted">
+                                Used used to identify the toggle
+                            </Form.Text>
+                        </Col>
                     </Form.Group>
-                    <Form.Group controlId="formDescription">
-                        <Form.Label>Description</Form.Label>
-                        <Form.Control value={this.toggle.description} as="textarea" rows="3" placeholder="Ex: Toggle to manage authentication services..." />
+                    <Form.Group as={Row} controlId="formDescription">
+                        <Form.Label column sm="2">
+                            Description
+                        </Form.Label>
+                        <Col sm="10">
+                            <Form.Control
+                                value={this.state.description}
+                                onChange={this.handleDescriptionChange}
+                                as="textarea" rows="3"
+                                placeholder="Ex: Toggle to manage authentication services..."
+                            />
+                        </Col>
                     </Form.Group>
+                    <Button variant="primary" type="submit">
+                        Submit
+                    </Button>
                 </Form>
             </div>
         );

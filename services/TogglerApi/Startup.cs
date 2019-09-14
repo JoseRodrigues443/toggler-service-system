@@ -87,7 +87,8 @@ namespace TogglerApi
 
 
             app.UseCors(builder =>
-                builder.WithOrigins("http://localhost:3000") // REACT app, todo alter this
+                // Allow react app, todo: change to config
+                builder.WithOrigins("http://localhost:3000").AllowAnyHeader().AllowAnyHeader()
             );
 
             app.UseHttpsRedirection();

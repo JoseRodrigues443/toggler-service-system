@@ -1,48 +1,28 @@
 import React, { Component } from 'react'; // let's also import Component
-
-import { ToggleClient, Toggle } from "../../sdk/togglerApiClient/TogglerApi"
+// SDK
+import { Toggle } from "../../sdk/togglerApiClient/TogglerApi"
 
 // Components
 import { Accordion, Card, Alert, Container, Button } from 'react-bootstrap'
-import CreateEditToggle from "../createEditToggle/CreateEditToggle";
 
+
+type TogglerListProps = {
+    toggles: Toggle[]
+};
+type TogglerListState = {};
 
 /**
  * Toggle manager
  */
-export class TogglerList extends Component {
-
-    /**
-     * Toggle client of toggler list
-     */
-    public readonly toggleClient = new ToggleClient();
-
-    /**
-     * Toggler list of toggler list component
-     */
-    public togglerList: Toggle[] = [];
-
-    /**
-     * Loads toggles
-     */
-    async loadToggles() {
-        this.togglerList = await this.toggleClient.getAll();
-    }
-
-    /**
-     * Components did mount
-     */
-    componentDidMount() {
-        this.loadToggles();
-    }
-
+export class TogglerList extends Component<TogglerListProps, TogglerListState> {
 
     /**
      * Renders toggle manager
      * @returns  
      */
     render() {
-        const cards = this.buildCards()
+        const toggles = this.props.toggles;
+        const cards = this.buildCards(toggles)
         return <Accordion defaultActiveKey="0">
             {cards}
         </Accordion>
@@ -52,14 +32,8 @@ export class TogglerList extends Component {
      * Builds cards
      * @returns  
      */
-    buildCards() {
-        // no toggle then allow to create
-        if (this.togglerList.length === 0) {
-            return (
-                <CreateEditToggle />
-            )
-        }
-        return this.togglerList.map((toggle, index) => {
+    buildCards(toggles: Toggle[]) {
+        return toggles.map((toggle, index) => {
             return (
                 <Card>
                     <Accordion.Toggle as={Card.Header} eventKey={`${index}`}>
