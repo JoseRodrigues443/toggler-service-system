@@ -28,6 +28,7 @@ namespace TogglerApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             // Register the Swagger services
@@ -54,8 +55,15 @@ namespace TogglerApi
                 });
 
             // Register Database context
+            // Toggler
             services.AddDbContext<ToggleContext>(opt =>
                 opt.UseInMemoryDatabase("ToggleList"));
+            // states
+            services.AddDbContext<ToggleStateContext>(opt =>
+                opt.UseInMemoryDatabase("ToggleStateContextList"));
+            // Services
+            services.AddDbContext<ServiceContext>(opt =>
+                opt.UseInMemoryDatabase("ServiceList"));
 
         }
 
@@ -77,6 +85,10 @@ namespace TogglerApi
             app.UseOpenApi();
             app.UseSwaggerUi3();
 
+
+            app.UseCors(builder =>
+                builder.WithOrigins("http://localhost:3000") // REACT app, todo alter this
+            );
 
             app.UseHttpsRedirection();
             app.UseMvc();

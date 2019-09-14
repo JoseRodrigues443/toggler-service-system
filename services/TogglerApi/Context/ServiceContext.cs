@@ -7,18 +7,18 @@ using System.Threading;
 using System.Threading.Tasks;
 namespace TogglerApi.Context
 {
-    public class ToggleContext : DbContext
+    public class ServiceContext : DbContext
     {
-        public ToggleContext(DbContextOptions<ToggleContext> options)
+        public ServiceContext(DbContextOptions<ToggleContext> options)
             : base(options)
         {
         }
 
         /// <summary>
-        /// Toggles in system
+        /// Services in system
         /// </summary>
         /// <value></value>
-        public DbSet<Toggle> Toggles { get; set; }
+        public DbSet<Service> Services { get; set; }
 
         /// <summary>
         /// Save Changes

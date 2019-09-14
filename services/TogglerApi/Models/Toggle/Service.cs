@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
+using TogglerApi.Models;
 
 namespace TogglerApi.Models.Toggle
 {
-    public class Toggle : IToggle, ITrackable
+    public class Service : ITrackable
     {
         /// <summary>
         /// Identifier
@@ -12,17 +13,16 @@ namespace TogglerApi.Models.Toggle
         public long Id { get; set; }
 
         /// <summary>
-        /// Toggle Identifier
+        /// Service Identifier
         /// </summary>
         /// <value></value>
         public string Key { get; set; }
 
         /// <summary>
-        /// Toggle Description
+        /// Service Description
         /// </summary>
         /// <value></value>
         public string Description { get; set; }
-
 
         /// <summary>
         /// When was created
@@ -40,7 +40,6 @@ namespace TogglerApi.Models.Toggle
         /// </summary>
         /// <returns></returns>
         public List<ToggleState> States { get; set; } = new List<ToggleState>();
-
 
     }
 }

@@ -4,6 +4,32 @@
         <name>TogglerApi</name>
     </assembly>
     <members>
+        <member name="P:TogglerApi.Context.ServiceContext.Services">
+            <summary>
+            Services in system
+            </summary>
+            <value></value>
+        </member>
+        <member name="M:TogglerApi.Context.ServiceContext.SaveChanges(System.Boolean)">
+            <summary>
+            Save Changes
+            </summary>
+            <param name="acceptAllChangesOnSuccess"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TogglerApi.Context.ServiceContext.SaveChangesAsync(System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            
+            </summary>
+            <param name="acceptAllChangesOnSuccess"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TogglerApi.Context.ServiceContext.OnBeforeSaving">
+            <summary>
+            Alters the instance to add tracking columns
+            </summary>
+        </member>
         <member name="P:TogglerApi.Context.ToggleContext.Toggles">
             <summary>
             Toggles in system
@@ -30,12 +56,65 @@
             Alters the instance to add tracking columns
             </summary>
         </member>
+        <member name="P:TogglerApi.Context.ToggleStateContext.States">
+            <summary>
+            Toggle states in system
+            </summary>
+            <value></value>
+        </member>
+        <member name="M:TogglerApi.Context.ToggleStateContext.SaveChanges(System.Boolean)">
+            <summary>
+            Save Changes
+            </summary>
+            <param name="acceptAllChangesOnSuccess"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TogglerApi.Context.ToggleStateContext.SaveChangesAsync(System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            
+            </summary>
+            <param name="acceptAllChangesOnSuccess"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TogglerApi.Context.ToggleStateContext.OnBeforeSaving">
+            <summary>
+            Alters the instance to add tracking columns
+            </summary>
+        </member>
+        <member name="M:TogglerApi.Context.TrackableUtils.manageTrackableColumns(System.Collections.Generic.IEnumerable{Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry})">
+            <summary>
+            Alters the instance to add tracking columns
+            </summary>
+        </member>
+        <member name="F:TogglerApi.Controllers.ServiceController._serviceContext">
+            <summary>
+            Service context to the database
+            </summary>
+        </member>
+        <member name="M:TogglerApi.Controllers.ServiceController.#ctor(TogglerApi.Context.ServiceContext)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="context"></param>
+        </member>
         <member name="F:TogglerApi.Controllers.ToggleController._toggleContext">
             <summary>
             Toggle context to the database
             </summary>
         </member>
         <member name="M:TogglerApi.Controllers.ToggleController.#ctor(TogglerApi.Context.ToggleContext)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="F:TogglerApi.Controllers.ToggleStateController._toggleStateContext">
+            <summary>
+            Toggle context to the database
+            </summary>
+        </member>
+        <member name="M:TogglerApi.Controllers.ToggleStateController.#ctor(TogglerApi.Context.ToggleStateContext)">
             <summary>
             Constructor
             </summary>
@@ -53,42 +132,41 @@
             </summary>
             <value></value>
         </member>
-        <member name="P:TogglerApi.Models.Toggle.Feature.Id">
+        <member name="P:TogglerApi.Models.Toggle.Service.Id">
             <summary>
             Identifier
             </summary>
             <value></value>
         </member>
-        <member name="P:TogglerApi.Models.Toggle.Feature.Key">
+        <member name="P:TogglerApi.Models.Toggle.Service.Key">
             <summary>
-            Feature Identifier
+            Service Identifier
             </summary>
             <value></value>
         </member>
-        <member name="P:TogglerApi.Models.Toggle.Feature.Description">
+        <member name="P:TogglerApi.Models.Toggle.Service.Description">
             <summary>
-            Feature Description
+            Service Description
             </summary>
             <value></value>
         </member>
-        <member name="P:TogglerApi.Models.Toggle.Feature.Toggles">
-            <summary>
-            Toggles related to a given featureF
-            </summary>
-            <typeparam name="Toggle"></typeparam>
-            <returns></returns>
-        </member>
-        <member name="P:TogglerApi.Models.Toggle.Feature.CreatedAt">
+        <member name="P:TogglerApi.Models.Toggle.Service.CreatedAt">
             <summary>
             When was created
             </summary>
             <value></value>
         </member>
-        <member name="P:TogglerApi.Models.Toggle.Feature.UpdatedAt">
+        <member name="P:TogglerApi.Models.Toggle.Service.UpdatedAt">
             <summary>
             When was updated
             </summary>
             <value></value>
+        </member>
+        <member name="P:TogglerApi.Models.Toggle.Service.States">
+            <summary>
+            Toggles states related to a given service
+            </summary>
+            <returns></returns>
         </member>
         <member name="P:TogglerApi.Models.Toggle.Toggle.Id">
             <summary>
@@ -108,12 +186,6 @@
             </summary>
             <value></value>
         </member>
-        <member name="P:TogglerApi.Models.Toggle.Toggle.Value">
-            <summary>
-            The toggle current value
-            </summary>
-            <value></value>
-        </member>
         <member name="P:TogglerApi.Models.Toggle.Toggle.CreatedAt">
             <summary>
             When was created
@@ -123,6 +195,48 @@
         <member name="P:TogglerApi.Models.Toggle.Toggle.UpdatedAt">
             <summary>
             When was updated
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:TogglerApi.Models.Toggle.Toggle.States">
+            <summary>
+            Toggles states related to a given service
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:TogglerApi.Models.Toggle.ToggleState.Id">
+            <summary>
+            Identifier
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:TogglerApi.Models.Toggle.ToggleState.Value">
+            <summary>
+            The toggle value for a given service
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:TogglerApi.Models.Toggle.ToggleState.CreatedAt">
+            <summary>
+            When was created
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:TogglerApi.Models.Toggle.ToggleState.UpdatedAt">
+            <summary>
+            When was updated
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:TogglerApi.Models.Toggle.ToggleState.Toggle">
+            <summary>
+            The related Toggle
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:TogglerApi.Models.Toggle.ToggleState.Service">
+            <summary>
+            The related Service
             </summary>
             <value></value>
         </member>

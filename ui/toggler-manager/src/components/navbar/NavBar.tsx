@@ -1,4 +1,4 @@
-import React, { Component } from 'react'; // let's also import Component
+import React from 'react'; // let's also import Component
 // components
 import { Navbar as BtsNavbar, Nav } from 'react-bootstrap';
 
@@ -11,7 +11,7 @@ const Navbar: React.FC = (props) => {
                 <BtsNavbar.Collapse id="responsive-navbar-nav">
                     <Nav className="mr-auto">
                         <Nav.Link href="#toggles">Toggles</Nav.Link>
-                        <Nav.Link href="#features">Features</Nav.Link>
+                        <Nav.Link href="#features">Services</Nav.Link>
                     </Nav>
                     <Nav>
                         <Nav.Link href="#bout">Example</Nav.Link>
