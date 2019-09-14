@@ -9,8 +9,8 @@ import { Container } from 'react-bootstrap'
 // Components
 import NavBar from "./components/navbar/NavBar";
 import Home from "./pages/home/Home";
-import ToggleListView from "./pages/toggleListView/ToggleListView";
-import ToggleEditView from "./pages/toggleEditView/ToggleEditView";
+import ToggleListView from "./pages/toggleViews/toggleListView/ToggleListView";
+import ToggleEditView from "./pages/toggleViews/toggleEditView/ToggleEditView"
 
 const App: React.FC = () => {
   return (

@@ -2,10 +2,10 @@ import React, { Component } from 'react'; // let's also import Component
 import { RouteComponentProps } from 'react-router';
 
 // SDK
-import { ToggleClient, Toggle } from "../../sdk/togglerApiClient/TogglerApi"
+import { ToggleClient, Toggle } from "../../../sdk/togglerApiClient/TogglerApi"
 
 // Components
-import CreateEditToggle from "../../components/createEditToggle/CreateEditToggle";
+import CreateEditToggle from "../../../components/createEditToggle/CreateEditToggle";
 
 
 /**

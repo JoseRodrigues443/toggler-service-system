@@ -5,54 +5,51 @@ networks:
     driver: bridge
 
 services:
+  # REACT CLIENT
   client:
-      build:
-        context: ./client/
-      command: npm start
-      volumes:
-        - ./client/:/usr/app
-        - /usr/app/node_modules
-      depends_on:
-        - server
-      ports:
-        - "3000:3000"
-  toggler-manager:
-    image: toggler-manager:latest
-    # depends_on:
-    #   - "postgres_image"
     build:
-      context: .
+      context: ./ui/toggler-manager
       dockerfile: Dockerfile
+    command: npm start
+    volumes:
+      - ./client/:/usr/app
+      - /usr/app/node_modules
+    depends_on:
+      - api
+    ports:
+      - "3000:3000"
+  # API
+  api:
+    depends_on:
+      - "db"
+    build:
+      context: ./services/TogglerApi
+      dockerfile: Dockerfile
+    container_name: toggler_api
+    restart: on-failure
     ports:
       - "8000:80"
-    environment:
-      # DB_CONNECTION_STRING: "host=postgres_image;port=5432;database=toggler-db;username=toggler-admin;password=toggler-admin"
     networks:
       - base-network
-  # _____________ TODO: add persistence layer
-  # postgres_image:
-  #   image: postgres:latest
-  #   ports:
-  #     - "5432"
-  #   restart: always
-  #   volumes:
-  #     - db_volume:/var/lib/postgresql/data
-  #     # - ./dbscripts/seed.sql :/docker-entrypoint-initdb.d/seed.sql  # use seed in dotnet
-  #   environment:
-  #     POSTGRES_USER: "admin"
-  #     POSTGRES_PASSWORD: "admin"
-  #     POSTGRES_DB: "toggler-db"
-  #   networks:
-  #     - base-network
-  zookeeper:
-    image: wurstmeister/zookeeper 
-  kafka:
-    image: wurstmeister/kafka
+  # PERSISTENCE
+  db:
+    image: "mcr.microsoft.com/mssql/server"
+    environment:
+      SA_PASSWORD: "TOGGLER_API_12345"
+      ACCEPT_EULA: "Y"
+    networks:
+      - base-network
+
+  # Communication layer
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    restart: on-failure
     ports:
-    - "9092:9092"
-  environment:
-    KAFKA_ADVERTISED_HOST_NAME: localhost
-    KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      - "15672:15672"
+      - "5672:5672"
+    volumes:
+      - ./rabbitmq_volume:/var/lib/rabbitmq/mnesia
 
 volumes:
   db_volume:

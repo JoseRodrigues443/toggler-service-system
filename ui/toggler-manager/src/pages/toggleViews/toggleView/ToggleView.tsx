@@ -1,6 +1,6 @@
 import React, { Component } from 'react'; // let's also import Component
 
-import { ToggleClient, Toggle, IToggle } from "../../sdk/togglerApiClient/TogglerApi"
+import { ToggleClient, Toggle, IToggle } from "../../../sdk/togglerApiClient/TogglerApi"
 
 // Components
 import { Form, Button, Row, Col } from 'react-bootstrap'
@@ -9,7 +9,7 @@ import { Form, Button, Row, Col } from 'react-bootstrap'
 /**
  * Toggle manager
  */
-export class CreateEditToggle extends Component<{ id?: number }, IToggle> {
+export class ToggleView extends Component<{ id?: number }, IToggle> {
 
     /**
      * Toggle client of toggler list
@@ -57,9 +57,9 @@ export class CreateEditToggle extends Component<{ id?: number }, IToggle> {
     }
 
 
-    async serviceCall() {
+    serviceCall() {
         if (this.props.id == null) {
-            const result = await this.toggleClient.post(new Toggle({
+            this.toggleClient.post(new Toggle({
                 id: this.state.id,
                 createdAt: this.state.createdAt,
                 updatedAt: this.state.updatedAt,
@@ -68,7 +68,7 @@ export class CreateEditToggle extends Component<{ id?: number }, IToggle> {
             }));
         } else {
             // update
-            const result = await this.toggleClient.put(this.props.id, new Toggle({
+            this.toggleClient.put(this.props.id, new Toggle({
                 id: this.state.id,
                 createdAt: this.state.createdAt,
                 updatedAt: this.state.updatedAt,
@@ -102,43 +102,10 @@ export class CreateEditToggle extends Component<{ id?: number }, IToggle> {
      */
     render() {
         return (
-            <div>
-                <h1>Create Toggle</h1>
-                <Form onSubmit={this.handleSubmit}>
-                    <Form.Group as={Row} controlId="formKey">
-                        <Form.Label column sm="2">
-                            Key
-                        </Form.Label>
-                        <Col sm="10">
-                            <Form.Control value={this.state.key} onChange={this.handleKeyChange}
-                                type="text" placeholder="Enter Toggle Key Identifier" required
-                            />
-                            <Form.Text className="text-muted">
-                                Used used to identify the toggle
-                            </Form.Text>
-                        </Col>
-                    </Form.Group>
-                    <Form.Group as={Row} controlId="formDescription">
-                        <Form.Label column sm="2">
-                            Description
-                        </Form.Label>
-                        <Col sm="10">
-                            <Form.Control
-                                value={this.state.description}
-                                onChange={this.handleDescriptionChange}
-                                as="textarea" rows="3"
-                                placeholder="Ex: Toggle to manage authentication services..."
-                            />
-                        </Col>
-                    </Form.Group>
-                    <Button variant="primary" type="submit">
-                        Submit
-                    </Button>
-                </Form>
-            </div>
+          <p>aaaaaaaa</p>
         );
     }
 
 }
 
-export default CreateEditToggle;
+export default ToggleView;

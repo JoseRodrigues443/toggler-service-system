@@ -1746,17 +1746,18 @@
           "lib/netstandard2.0/Microsoft.EntityFrameworkCore.Relational.dll": {}
         }
       },
-      "Microsoft.EntityFrameworkCore.SqlServer/2.2.0": {
+      "Microsoft.EntityFrameworkCore.SqlServer/1.0.0": {
         "type": "package",
         "dependencies": {
-          "Microsoft.EntityFrameworkCore.Relational": "2.2.0",
-          "System.Data.SqlClient": "4.6.0"
+          "Microsoft.EntityFrameworkCore.Relational": "1.0.0",
+          "System.Data.SqlClient": "4.1.0",
+          "System.Threading.Thread": "4.0.0"
         },
         "compile": {
-          "lib/netstandard2.0/Microsoft.EntityFrameworkCore.SqlServer.dll": {}
+          "lib/netstandard1.3/Microsoft.EntityFrameworkCore.SqlServer.dll": {}
         },
         "runtime": {
-          "lib/netstandard2.0/Microsoft.EntityFrameworkCore.SqlServer.dll": {}
+          "lib/netstandard1.3/Microsoft.EntityFrameworkCore.SqlServer.dll": {}
         }
       },
       "Microsoft.EntityFrameworkCore.Tools/2.2.0": {
@@ -4399,7 +4400,7 @@
           "System.Runtime": "4.3.0"
         },
         "compile": {
-          "ref/netstandard1.3/_._": {}
+          "ref/netstandard1.3/System.Threading.Thread.dll": {}
         },
         "runtime": {
           "lib/netstandard1.3/System.Threading.Thread.dll": {}
@@ -6084,16 +6085,18 @@
         "microsoft.entityframeworkcore.relational.nuspec"
       ]
     },
-    "Microsoft.EntityFrameworkCore.SqlServer/2.2.0": {
-      "sha512": "6wGv0oqusLfjfznd9hpbkeKs5vNYJ9UDyFMj+u2cHyZZZOKcGhtANXFqS5JusDWQmYfkX3tDZSRFIr+3zdCU8Q==",
+    "Microsoft.EntityFrameworkCore.SqlServer/1.0.0": {
+      "sha512": "zLPrmmZ2b4jM3Hezf4dP2oIVREeXlXfcyNDX4mBZ6xcW+QauxyDpzrB86mnEF1quBdkpbZhv7T+ZbS9XS6Hqdg==",
       "type": "package",
-      "path": "microsoft.entityframeworkcore.sqlserver/2.2.0",
+      "path": "microsoft.entityframeworkcore.sqlserver/1.0.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "lib/netstandard2.0/Microsoft.EntityFrameworkCore.SqlServer.dll",
-        "lib/netstandard2.0/Microsoft.EntityFrameworkCore.SqlServer.xml",
-        "microsoft.entityframeworkcore.sqlserver.2.2.0.nupkg.sha512",
+        "lib/net451/Microsoft.EntityFrameworkCore.SqlServer.dll",
+        "lib/net451/Microsoft.EntityFrameworkCore.SqlServer.xml",
+        "lib/netstandard1.3/Microsoft.EntityFrameworkCore.SqlServer.dll",
+        "lib/netstandard1.3/Microsoft.EntityFrameworkCore.SqlServer.xml",
+        "microsoft.entityframeworkcore.sqlserver.1.0.0.nupkg.sha512",
         "microsoft.entityframeworkcore.sqlserver.nuspec"
       ]
     },
@@ -12388,6 +12391,7 @@
     ".NETCoreApp,Version=v2.2": [
       "Microsoft.AspNetCore.App >= 2.2.0",
       "Microsoft.AspNetCore.Razor.Design >= 2.2.0",
+      "Microsoft.EntityFrameworkCore.SqlServer",
       "Microsoft.NETCore.App >= 2.2.0",
       "NSwag.AspNetCore >= 13.0.6"
     ]
@@ -12399,11 +12403,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\jmrodrigues\\Documents\\GIT\\TogglerServiceSystem\\services\\TogglerApi\\TogglerApi.csproj",
+      "projectUniqueName": "C:\\Users\\jmrodrigues\\Documents\\GIT\\TogglerServiceSystem\\services\\TogglerApi\\TogglerApi.csproj",
       "projectName": "TogglerApi",
-      "projectPath": "c:\\Users\\jmrodrigues\\Documents\\GIT\\TogglerServiceSystem\\services\\TogglerApi\\TogglerApi.csproj",
+      "projectPath": "C:\\Users\\jmrodrigues\\Documents\\GIT\\TogglerServiceSystem\\services\\TogglerApi\\TogglerApi.csproj",
       "packagesPath": "C:\\Users\\jmrodrigues\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\jmrodrigues\\Documents\\GIT\\TogglerServiceSystem\\services\\TogglerApi\\obj\\",
+      "outputPath": "C:\\Users\\jmrodrigues\\Documents\\GIT\\TogglerServiceSystem\\services\\TogglerApi\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -12442,6 +12446,10 @@
             "target": "Package",
             "version": "[2.2.0, )"
           },
+          "Microsoft.EntityFrameworkCore.SqlServer": {
+            "target": "Package",
+            "version": "(, )"
+          },
           "Microsoft.NETCore.App": {
             "suppressParent": "All",
             "target": "Package",
@@ -12460,5 +12468,17 @@
         "warn": true
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1604",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Project dependency Microsoft.EntityFrameworkCore.SqlServer does not contain an inclusive lower bound. Include a lower bound in the dependency version to ensure consistent restore results.",
+      "libraryId": "Microsoft.EntityFrameworkCore.SqlServer",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v2.2"
+      ]
+    }
+  ]
 }

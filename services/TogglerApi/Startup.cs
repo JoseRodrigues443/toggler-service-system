@@ -54,16 +54,18 @@ namespace TogglerApi
                     };
                 });
 
+            // TODO: use docker-compose .env
+            var connection = @"Server=db;Database=master;User=sa;Password=TOGGLER_API_12345;";
             // Register Database context
             // Toggler
             services.AddDbContext<ToggleContext>(opt =>
-                opt.UseInMemoryDatabase("ToggleList"));
+                opt.UseSqlServer(connection));
             // states
             services.AddDbContext<ToggleStateContext>(opt =>
-                opt.UseInMemoryDatabase("ToggleStateContextList"));
+                opt.UseSqlServer(connection));
             // Services
             services.AddDbContext<ServiceContext>(opt =>
-                opt.UseInMemoryDatabase("ServiceList"));
+                opt.UseSqlServer(connection));
 
         }
 

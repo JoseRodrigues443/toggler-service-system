@@ -1,16 +1,19 @@
-FROM mcr.microsoft.com/dotnet/core/sdk:2.2 AS build-env
-WORKDIR /app
+FROM microsoft/dotnet:2.2.102-sdk-stretch AS build-env
 
-# Copy csproj and restore as distinct layers
+WORKDIR /api
+
 COPY *.csproj ./
+
 RUN dotnet restore
 
-# Copy everything else and build
 COPY . ./
+
 RUN dotnet publish -c Release -o out
 
-# Build runtime image
-FROM mcr.microsoft.com/dotnet/core/aspnet:2.2
-WORKDIR /app
-COPY --from=build-env /app/out .
-ENTRYPOINT ["dotnet", "aspnetapp.dll"]
+FROM microsoft/dotnet:2.2.1-aspnetcore-runtime-stretch-slim
+
+WORKDIR /api
+
+COPY --from=build-env /api/out .
+
+ENTRYPOINT ["dotnet", "TogglerApi.dll"]

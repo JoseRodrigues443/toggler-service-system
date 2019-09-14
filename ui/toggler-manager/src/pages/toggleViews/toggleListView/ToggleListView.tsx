@@ -1,11 +1,11 @@
 import React, { Component } from 'react'; // let's also import Component
 
 // SDK
-import { ToggleClient, Toggle } from "../../sdk/togglerApiClient/TogglerApi"
+import { ToggleClient, Toggle } from "../../../sdk/togglerApiClient/TogglerApi"
 
 // Components
-import TogglerList from "../../components/togglerList/TogglerList";
-import CreateEditToggle from "../../components/createEditToggle/CreateEditToggle";
+import TogglerList from "../../../components/togglerList/TogglerList";
+import CreateEditToggle from "../../../components/createEditToggle/CreateEditToggle";
 
 
 type ToggleListViewState = {
