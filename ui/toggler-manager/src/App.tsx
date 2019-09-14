@@ -10,6 +10,7 @@ import { Container } from 'react-bootstrap'
 import NavBar from "./components/navbar/NavBar";
 import Home from "./pages/home/Home";
 import ToggleListView from "./pages/toggleListView/ToggleListView";
+import ToggleEditView from "./pages/toggleEditView/ToggleEditView";
 
 const App: React.FC = () => {
   return (
@@ -20,6 +21,7 @@ const App: React.FC = () => {
         <Container>
           <Route exact path="/" component={Home} />
           <Route exact path="/toggles" component={ToggleListView} />
+          <Route path="/toggle/:id/edit" component={ToggleEditView} />
         </Container>
       </Router>
     </div>

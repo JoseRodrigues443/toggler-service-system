@@ -54,6 +54,7 @@ export class ToggleListView extends Component<{}, ToggleListViewState> {
     }
     return (<>
       <h1>Toggle List</h1>
+      <br/>
       <TogglerList toggles={this.state.toggles} />
     </>);
   }

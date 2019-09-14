@@ -3,7 +3,7 @@ import React, { Component } from 'react'; // let's also import Component
 import { Toggle } from "../../sdk/togglerApiClient/TogglerApi"
 
 // Components
-import { Accordion, Card, Alert, Container, Button } from 'react-bootstrap'
+import { Accordion, Card, Alert, Container, ButtonToolbar, Button,Badge } from 'react-bootstrap'
 
 
 type TogglerListProps = {
@@ -41,7 +41,12 @@ export class TogglerList extends Component<TogglerListProps, TogglerListState> {
                     </Accordion.Toggle>
                     <Accordion.Collapse eventKey={`${index}`}>
                         <Card.Body>
-                            {toggle.description}
+                            <Card.Text>
+                                {toggle.description}
+                            </Card.Text>
+                            <Button href={`/toggle/${toggle.id}/edit`}>
+                                Edit
+                            </Button>
                         </Card.Body>
                     </Accordion.Collapse>
                 </Card>
