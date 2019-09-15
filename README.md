@@ -35,3 +35,10 @@ Rest Requests:
 
 ## License
 [GPL4](https://choosealicense.com/licenses/gpl-3.0/#)
+
+
+
+## Notes
+- Toggler API service keeps waiting till mssql container ready to accept connections. This waiting feature was implemented with wait-for-it.
+(https://github.com/vishnubob/wait-for-it)
+- mssql and rabbitmq volumes are exist and active by defauls in docker-compose.yml

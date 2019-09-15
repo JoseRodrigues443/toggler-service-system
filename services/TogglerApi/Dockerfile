@@ -21,4 +21,4 @@ COPY --from=build-env /api/out .
 
 
 
-ENTRYPOINT ["dotnet", "TogglerApi.dll"]
+# ENTRYPOINT ["dotnet", "TogglerApi.dll"]
