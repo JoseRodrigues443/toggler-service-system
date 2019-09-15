@@ -1,1 +1,53 @@
-# not in production yet
+version: "3.4"
+
+networks:
+  base-network:
+    driver: bridge
+
+services:
+  # API
+  api:
+    depends_on:
+      - "db"
+    build:
+      context: ./services/TogglerApi
+      dockerfile: Dockerfile
+    container_name: toggler_api
+    restart: on-failure
+    ports:
+      - "5001:5002"
+    networks:
+      - base-network
+  # PERSISTENCE
+  db:
+    image: "mcr.microsoft.com/mssql/server"
+    environment:
+      SA_PASSWORD: "TOGGLER_API_12345"
+      ACCEPT_EULA: "Y"
+    networks:
+      - base-network
+
+  # Communication layer
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    restart: on-failure
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    volumes:
+      - ./rabbitmq_volume:/var/lib/rabbitmq/mnesia
+    networks:
+      - base-network
+  # REACT CLIENT
+  client:
+    build:
+      context: ./ui/toggler-manager
+      dockerfile: Dockerfile
+    depends_on:
+      - api
+    ports:
+      - "3000:3001"
+
+volumes:
+  db_volume:

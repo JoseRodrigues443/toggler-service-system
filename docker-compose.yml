@@ -5,17 +5,6 @@ networks:
     driver: bridge
 
 services:
-  # REACT CLIENT
-  client:
-    build:
-      context: ./ui/toggler-manager
-      dockerfile: Dockerfile
-    command: npm start
-    volumes:
-      - ./client/:/usr/app
-      - /usr/app/node_modules
-    depends_on:
-      - api
   # API
   api:
     depends_on:
@@ -25,6 +14,8 @@ services:
       dockerfile: Dockerfile
     container_name: toggler_api
     restart: on-failure
+    ports:
+      - "5000:80"
     networks:
       - base-network
   # PERSISTENCE
@@ -46,6 +37,19 @@ services:
       - "5672:5672"
     volumes:
       - ./rabbitmq_volume:/var/lib/rabbitmq/mnesia
+    networks:
+      - base-network
+  # REACT CLIENT
+  client:
+    build:
+      context: ./ui/toggler-manager
+      dockerfile: Dockerfile
+    container_name: toggler_ui
+    restart: on-failure
+    depends_on:
+      - api
+    ports:
+      - '5001:3000'
 
 volumes:
   db_volume:

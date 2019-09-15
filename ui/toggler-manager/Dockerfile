@@ -1,15 +1,15 @@
-FROM mhart/alpine-node:11 AS builder
+FROM node:9.6.1
 
-WORKDIR /client
+RUN mkdir client
 
-COPY . ./
+WORKDIR /client 
 
-RUN yarn run build
+COPY package.json /client/package.json
 
-FROM mhart/alpine-node
-RUN yarn global add serve
+RUN npm i
 
-WORKDIR /client
+COPY . /client
 
-COPY --from=builder /client/build .çp
-CMD ["serve", "-s", "."]
+RUN npm run build
+
+CMD ["npm", "start"]

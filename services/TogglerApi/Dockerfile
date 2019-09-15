@@ -16,4 +16,6 @@ WORKDIR /api
 
 COPY --from=build-env /api/out .
 
+
+
 ENTRYPOINT ["dotnet", "TogglerApi.dll"]
