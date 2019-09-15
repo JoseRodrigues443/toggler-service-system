@@ -86,6 +86,14 @@ namespace TogglerApi
                 app.UseHsts();
             }
 
+            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                using (var context = serviceScope.ServiceProvider.GetService<ToggleContext>())
+                {
+                    context.Database.Migrate();
+                }
+            }
+
             // app.UseRabbitListener();
 
             // Register the Swagger generator and the Swagger UI middlewares

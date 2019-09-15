@@ -6,7 +6,7 @@ const Navbar: React.FC = (props) => {
     return (
         <div className="Navbar">
             <BtsNavbar collapseOnSelect>
-                <BtsNavbar.Brand href="home">Toggler Manager</BtsNavbar.Brand>
+                <BtsNavbar.Brand href="">Toggler Manager</BtsNavbar.Brand>
                 <BtsNavbar.Toggle aria-controls="responsive-navbar-nav" />
                 <BtsNavbar.Collapse id="responsive-navbar-nav">
                     <Nav className="mr-auto">
