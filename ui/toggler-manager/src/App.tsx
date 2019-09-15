@@ -10,18 +10,19 @@ import { Container } from 'react-bootstrap'
 import NavBar from "./components/navbar/NavBar";
 import Home from "./pages/home/Home";
 import ToggleListView from "./pages/toggleViews/toggleListView/ToggleListView";
-import ToggleEditView from "./pages/toggleViews/toggleEditView/ToggleEditView"
+import ToggleEditView from "./pages/toggleViews/toggleEditView/ToggleEditView";
+import ToggleCreateView from "./pages/toggleViews/toggleCreateView/ToggleCreateView";
 
 const App: React.FC = () => {
   return (
     <div className="App">
+      <NavBar />
       <Router>
-        <NavBar />
-
         <Container>
           <Route exact path="/" component={Home} />
           <Route exact path="/toggles" component={ToggleListView} />
           <Route path="/toggle/:id/edit" component={ToggleEditView} />
+          <Route path="/toggles/create" component={ToggleCreateView} />
         </Container>
       </Router>
     </div>

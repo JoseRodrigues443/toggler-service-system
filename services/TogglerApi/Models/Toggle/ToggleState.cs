@@ -11,7 +11,6 @@ namespace TogglerApi.Models.Toggle
         /// Identifier
         /// </summary>
         /// <value></value>
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
 
         /// <summary>

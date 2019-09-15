@@ -54,6 +54,7 @@ namespace TogglerApi.Controllers
         }
 
 
+
         // POST api/toggle/state
         [HttpPost]
         public async Task<ActionResult<ToggleState>> Post([FromBody] ToggleState value)

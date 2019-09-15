@@ -52,6 +52,21 @@ namespace TogglerApi.Controllers
         }
 
 
+        // GET api/service/5/states
+        [HttpGet("{id}/states")]
+        public async Task<ActionResult<IEnumerable<ToggleState>>> GetServiceStates(long id)
+        {
+            var toReturn = await _toggleContext.Services.FindAsync(id);
+
+            if (toReturn == null)
+            {
+                return NotFound();
+            }
+
+            return toReturn.States;
+        }
+
+
         // POST api/service
         [HttpPost]
         public async Task<ActionResult<Service>> Post([FromBody] Service value)
@@ -76,7 +91,7 @@ namespace TogglerApi.Controllers
             return NoContent(); // 204 (No Content), according to HTTP specification
         }
 
-        
+
         // Patch api/service
         [HttpPatch]
         public async Task<IActionResult> Patch(long id, [FromBody] Service value)
