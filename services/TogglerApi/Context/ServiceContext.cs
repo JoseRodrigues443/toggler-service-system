@@ -9,7 +9,7 @@ namespace TogglerApi.Context
 {
     public class ServiceContext : DbContext
     {
-        public ServiceContext(DbContextOptions<ToggleContext> options)
+        public ServiceContext(DbContextOptions<ServiceContext> options)
             : base(options)
         {
         }

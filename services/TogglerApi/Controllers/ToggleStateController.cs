@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using TogglerApi.Models.Toggle;
 using TogglerApi.Context;
 using Microsoft.EntityFrameworkCore;
+using TogglerApi.RabbitMQ;
 
 namespace TogglerApi.Controllers
 {
@@ -63,15 +64,22 @@ namespace TogglerApi.Controllers
 
         // PUT api/toggle/state
         [HttpPut]
-        public async Task<IActionResult> Put(long id, [FromBody] ToggleState value)
+        public async Task<IActionResult> Put(long id, [FromBody] ToggleState toggleState)
         {
-            if (id != value.Id)
+            if (id != toggleState.Id)
             {
                 return BadRequest();
             }
 
-            _toggleStateContext.Entry(value).State = EntityState.Modified;
+            _toggleStateContext.Entry(toggleState).State = EntityState.Modified;
             await _toggleStateContext.SaveChangesAsync();
+
+            // publish toggleState change
+            RabbitMqClient.Publish(new TogglerStateMessage
+            {
+                ToggleKey = toggleState.Toggle.Key,
+                Value = toggleState.Value
+            }, toggleState.Service.Key);
 
             return NoContent(); // 204 (No Content), according to HTTP specification
         }
@@ -92,5 +100,21 @@ namespace TogglerApi.Controllers
 
             return NoContent();
         }
+    }
+
+    public class TogglerStateMessage : IMessage
+    {
+
+        /// <summary>
+        /// The toggle key that is altered
+        /// </summary>
+        /// <value></value>
+        public string ToggleKey { get; set; }
+
+        /// <summary>
+        /// Teh serviceToggle Value
+        /// </summary>
+        /// <value></value>
+        public bool Value { get; set; }
     }
 }

@@ -120,6 +120,18 @@
             </summary>
             <param name="context"></param>
         </member>
+        <member name="P:TogglerApi.Controllers.TogglerStateMessage.ToggleKey">
+            <summary>
+            The toggle key that is altered
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:TogglerApi.Controllers.TogglerStateMessage.Value">
+            <summary>
+            Teh serviceToggle Value
+            </summary>
+            <value></value>
+        </member>
         <member name="P:TogglerApi.Models.ITrackable.CreatedAt">
             <summary>
             When was the instance created
@@ -239,6 +251,67 @@
             The related Service
             </summary>
             <value></value>
+        </member>
+        <member name="T:TogglerApi.RabbitMQ.IMessage">
+            <summary>
+            Message to send
+            </summary>
+        </member>
+        <member name="P:TogglerApi.RabbitMQ.IMessage.ToggleKey">
+            <summary>
+            The toggle key that is altered
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:TogglerApi.RabbitMQ.IMessage.Value">
+            <summary>
+            Teh serviceToggle Value
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:TogglerApi.RabbitMQ.RabbitListener.factory">
+            <summary>
+            Connection Factory
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:TogglerApi.RabbitMQ.RabbitListener.connection">
+            <summary>
+            Connection
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:TogglerApi.RabbitMQ.RabbitListener.channel">
+            <summary>
+            Channel
+            </summary>
+            <value></value>
+        </member>
+        <member name="M:TogglerApi.RabbitMQ.RabbitListener.Register(System.String,System.String)">
+            <summary>
+            Register to queue
+            </summary>
+            <param name="queue"></param>
+            <param name="logFilePath"></param>
+        </member>
+        <member name="M:TogglerApi.RabbitMQ.RabbitListener.Deregister">
+            <summary>
+            Deregister
+            </summary>
+        </member>
+        <member name="M:TogglerApi.RabbitMQ.RabbitListener.#ctor(System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="hostName"></param>
+        </member>
+        <member name="M:TogglerApi.RabbitMQ.RabbitMqClient.Publish(TogglerApi.RabbitMQ.IMessage,System.String,System.String)">
+            <summary>
+            Publish
+            /// </summary>
+            <param name="message"></param>
+            <param name="queue"></param>
+            <param name="hostname"></param>
         </member>
     </members>
 </doc>

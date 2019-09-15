@@ -16,8 +16,6 @@ services:
       - /usr/app/node_modules
     depends_on:
       - api
-    ports:
-      - "3000:3000"
   # API
   api:
     depends_on:
@@ -27,8 +25,6 @@ services:
       dockerfile: Dockerfile
     container_name: toggler_api
     restart: on-failure
-    ports:
-      - "8000:80"
     networks:
       - base-network
   # PERSISTENCE

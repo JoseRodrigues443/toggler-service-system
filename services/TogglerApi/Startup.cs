@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
 using TogglerApi.Context;
+using TogglerApi.RabbitMQ;
 
 
 namespace TogglerApi
@@ -53,6 +54,9 @@ namespace TogglerApi
                         };
                     };
                 });
+            // RabbitMQ listener
+            services.AddSingleton<RabbitListener>();
+
 
             // TODO: use docker-compose .env
             var connection = @"Server=db;Database=master;User=sa;Password=TOGGLER_API_12345;";
@@ -66,7 +70,6 @@ namespace TogglerApi
             // Services
             services.AddDbContext<ServiceContext>(opt =>
                 opt.UseSqlServer(connection));
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -82,6 +85,7 @@ namespace TogglerApi
                 app.UseHsts();
             }
 
+            // app.UseRabbitListener();
 
             // Register the Swagger generator and the Swagger UI middlewares
             app.UseOpenApi();
