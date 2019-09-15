@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.2",
-    "signature": "eb872594d43e2a3c1377e44a1c9d6a533ab289a0"
+    "signature": "bef57b2776c0b65f33547d07758c558b2e2421fe"
   },
   "compilationOptions": {
     "defines": [
@@ -24,6 +24,7 @@
     ".NETCoreApp,Version=v2.2": {
       "TogglerApi/1.0.0": {
         "dependencies": {
+          "AspNetCore.HealthChecks.UI.Client": "2.2.4",
           "Microsoft.AspNetCore.App": "2.2.0",
           "Microsoft.AspNetCore.Razor.Design": "2.2.0",
           "Microsoft.EntityFrameworkCore.SqlServer": "1.0.0",
@@ -37,6 +38,22 @@
         },
         "compile": {
           "TogglerApi.dll": {}
+        }
+      },
+      "AspNetCore.HealthChecks.UI.Client/2.2.4": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Http.Abstractions": "2.2.0",
+          "Microsoft.Extensions.Diagnostics.HealthChecks": "2.2.0",
+          "Newtonsoft.Json": "12.0.2"
+        },
+        "runtime": {
+          "lib/netstandard2.0/HealthChecks.UI.Client.dll": {
+            "assemblyVersion": "2.2.4.0",
+            "fileVersion": "2.2.4.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/HealthChecks.UI.Client.dll": {}
         }
       },
       "Microsoft.EntityFrameworkCore.SqlServer/1.0.0": {
@@ -3366,6 +3383,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "AspNetCore.HealthChecks.UI.Client/2.2.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-OACXyity9sOcOfLe6Bwyj3dA5TPxQvw5OguB1v9u8zaY6bHuy/DAx+MgK3CfzR87xXHFQ4B/PaCB92dKlxRQrw==",
+      "path": "aspnetcore.healthchecks.ui.client/2.2.4",
+      "hashPath": "aspnetcore.healthchecks.ui.client.2.2.4.nupkg.sha512"
     },
     "Microsoft.EntityFrameworkCore.SqlServer/1.0.0": {
       "type": "package",

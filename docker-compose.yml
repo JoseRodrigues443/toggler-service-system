@@ -5,25 +5,18 @@ networks:
     driver: bridge
 
 services:
-  # API
-  api:
-    depends_on:
-      - "db"
-    build:
-      context: ./services/TogglerApi
-      dockerfile: Dockerfile
-    container_name: toggler_api
-    restart: on-failure
-    ports:
-      - "5000:80"
-    networks:
-      - base-network
   # PERSISTENCE
-  db:
+  mssql:
     image: "mcr.microsoft.com/mssql/server"
+    container_name: mssql
+    restart: on-failure
     environment:
       SA_PASSWORD: "TOGGLER_API_12345"
       ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    volumes:
+      - ./mssql_volume:/var/opt/mssql
     networks:
       - base-network
 
@@ -39,6 +32,30 @@ services:
       - ./rabbitmq_volume:/var/lib/rabbitmq/mnesia
     networks:
       - base-network
+  # API
+  api:
+    build:
+      context: ./services/TogglerApi
+      dockerfile: Dockerfile
+    container_name: toggler_api
+    restart: on-failure
+    ports:
+      - "5000:80"
+    networks:
+      - base-network
+    depends_on:
+      - mssql
+      - rabbitmq
+    # this allows to wait for the mssql build, to init the DbSet contexts
+    command:
+      [
+        "./wait-for-it.sh",
+        "--timeout=0",
+        "mssql:1433",
+        "--",
+        "dotnet",
+        "TogglerApi.dll",
+      ]
   # REACT CLIENT
   client:
     build:
@@ -49,7 +66,6 @@ services:
     depends_on:
       - api
     ports:
-      - '5001:3000'
-
+      - "5001:3000"
 volumes:
   db_volume:

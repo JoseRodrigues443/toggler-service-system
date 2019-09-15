@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -30,7 +32,6 @@ namespace TogglerApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             // Register the Swagger services
             services.AddSwaggerDocument(config =>
@@ -59,17 +60,17 @@ namespace TogglerApi
 
 
             // TODO: use docker-compose .env
-            var connection = @"Server=db;Database=master;User=sa;Password=TOGGLER_API_12345;";
+            string connection = @"Server=mssql;Database=master;user id=sa;Password=TOGGLER_API_12345;";
             // Register Database context
             // Toggler
             services.AddDbContext<ToggleContext>(opt =>
                 opt.UseSqlServer(connection));
-            // states
-            services.AddDbContext<ToggleStateContext>(opt =>
-                opt.UseSqlServer(connection));
-            // Services
-            services.AddDbContext<ServiceContext>(opt =>
-                opt.UseSqlServer(connection));
+            services.AddHealthChecks();
+
+
+
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

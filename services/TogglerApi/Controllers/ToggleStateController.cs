@@ -15,18 +15,19 @@ namespace TogglerApi.Controllers
     public class ToggleStateController : ControllerBase
     {
 
+
         /// <summary>
         /// Toggle context to the database
         /// </summary>
-        private readonly ToggleStateContext _toggleStateContext;
+        private readonly ToggleContext _toggleContext;
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="context"></param>
-        public ToggleStateController(ToggleStateContext context)
+        public ToggleStateController(ToggleContext context)
         {
-            _toggleStateContext = context;
+            _toggleContext = context;
         }
 
 
@@ -35,14 +36,14 @@ namespace TogglerApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ToggleState>>> Get()
         {
-            return await _toggleStateContext.States.ToListAsync();
+            return await _toggleContext.States.ToListAsync();
         }
 
         // GET api/toggle/state/5
         [HttpGet("{id}")]
         public async Task<ActionResult<ToggleState>> Get(long id)
         {
-            var toReturn = await _toggleStateContext.States.FindAsync(id);
+            var toReturn = await _toggleContext.States.FindAsync(id);
 
             if (toReturn == null)
             {
@@ -57,8 +58,8 @@ namespace TogglerApi.Controllers
         [HttpPost]
         public async Task<ActionResult<ToggleState>> Post([FromBody] ToggleState value)
         {
-            _toggleStateContext.States.Add(value);
-            await _toggleStateContext.SaveChangesAsync();
+            _toggleContext.States.Add(value);
+            await _toggleContext.SaveChangesAsync();
             return CreatedAtAction(nameof(Get), new { id = value.Id }, value);
         }
 
@@ -71,8 +72,8 @@ namespace TogglerApi.Controllers
                 return BadRequest();
             }
 
-            _toggleStateContext.Entry(toggleState).State = EntityState.Modified;
-            await _toggleStateContext.SaveChangesAsync();
+            _toggleContext.Entry(toggleState).State = EntityState.Modified;
+            await _toggleContext.SaveChangesAsync();
 
             // publish toggleState change
             RabbitMqClient.Publish(new TogglerStateMessage
@@ -88,15 +89,15 @@ namespace TogglerApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(long id)
         {
-            var state = await _toggleStateContext.States.FindAsync(id);
+            var state = await _toggleContext.States.FindAsync(id);
 
             if (state == null)
             {
                 return NotFound();
             }
 
-            _toggleStateContext.States.Remove(state);
-            await _toggleStateContext.SaveChangesAsync();
+            _toggleContext.States.Remove(state);
+            await _toggleContext.SaveChangesAsync();
 
             return NoContent();
         }

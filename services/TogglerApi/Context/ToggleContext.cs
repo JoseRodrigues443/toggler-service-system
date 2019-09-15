@@ -21,6 +21,18 @@ namespace TogglerApi.Context
         public DbSet<Toggle> Toggles { get; set; }
 
         /// <summary>
+        /// Services in system
+        /// </summary>
+        /// <value></value>
+        public DbSet<Service> Services { get; set; }
+
+        /// <summary>
+        /// Toggle states in system
+        /// </summary>
+        /// <value></value>
+        public DbSet<ToggleState> States { get; set; }
+
+        /// <summary>
         /// Save Changes
         /// </summary>
         /// <param name="acceptAllChangesOnSuccess"></param>

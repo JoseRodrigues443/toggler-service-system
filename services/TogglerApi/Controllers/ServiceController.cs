@@ -15,17 +15,17 @@ namespace TogglerApi.Controllers
     {
 
         /// <summary>
-        /// Service context to the database
+        /// Toggle context to the database
         /// </summary>
-        private readonly ServiceContext _serviceContext;
+        private readonly ToggleContext _toggleContext;
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="context"></param>
-        public ServiceController(ServiceContext context)
+        public ServiceController(ToggleContext context)
         {
-            _serviceContext = context;
+            _toggleContext = context;
         }
 
 
@@ -34,14 +34,14 @@ namespace TogglerApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Service>>> Get()
         {
-            return await _serviceContext.Services.ToListAsync();
+            return await _toggleContext.Services.ToListAsync();
         }
 
         // GET api/service/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Service>> Get(long id)
         {
-            var toReturn = await _serviceContext.Services.FindAsync(id);
+            var toReturn = await _toggleContext.Services.FindAsync(id);
 
             if (toReturn == null)
             {
@@ -56,8 +56,8 @@ namespace TogglerApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Service>> Post([FromBody] Service value)
         {
-            _serviceContext.Services.Add(value);
-            await _serviceContext.SaveChangesAsync();
+            _toggleContext.Services.Add(value);
+            await _toggleContext.SaveChangesAsync();
             return CreatedAtAction(nameof(Get), new { id = value.Id }, value);
         }
 
@@ -70,8 +70,8 @@ namespace TogglerApi.Controllers
                 return BadRequest();
             }
 
-            _serviceContext.Entry(value).State = EntityState.Modified;
-            await _serviceContext.SaveChangesAsync();
+            _toggleContext.Entry(value).State = EntityState.Modified;
+            await _toggleContext.SaveChangesAsync();
 
             return NoContent(); // 204 (No Content), according to HTTP specification
         }
@@ -80,15 +80,15 @@ namespace TogglerApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(long id)
         {
-            var services = await _serviceContext.Services.FindAsync(id);
+            var services = await _toggleContext.Services.FindAsync(id);
 
             if (services == null)
             {
                 return NotFound();
             }
 
-            _serviceContext.Services.Remove(services);
-            await _serviceContext.SaveChangesAsync();
+            _toggleContext.Services.Remove(services);
+            await _toggleContext.SaveChangesAsync();
 
             return NoContent();
         }
