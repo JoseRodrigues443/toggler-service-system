@@ -8,11 +8,11 @@ namespace TogglerApi.Models
         /// When was the instance created
         /// </summary>
         /// <value></value>
-        DateTime CreatedAt { get; set; }
+        DateTime? CreatedAt { get; set; }
         /// <summary>
         /// When was the instance updated
         /// </summary>
         /// <value></value>
-        DateTime UpdatedAt { get; set; }
+        DateTime? UpdatedAt { get; set; }
     }
 }

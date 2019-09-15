@@ -31,12 +31,12 @@ namespace TogglerApi.Models.Toggle
         /// When was created
         /// </summary>
         /// <value></value>
-        public DateTime CreatedAt { get; set; }
+        public DateTime? CreatedAt { get; set; }
         /// <summary>
         /// When was updated
         /// </summary>
         /// <value></value>
-        public DateTime UpdatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
 
         /// <summary>
         /// Toggles states related to a given service

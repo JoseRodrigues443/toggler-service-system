@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using TogglerApi.Models;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TogglerApi.Models.Toggle
 {
@@ -10,6 +12,7 @@ namespace TogglerApi.Models.Toggle
         /// Identifier
         /// </summary>
         /// <value></value>
+       [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
 
         /// <summary>
@@ -28,12 +31,12 @@ namespace TogglerApi.Models.Toggle
         /// When was created
         /// </summary>
         /// <value></value>
-        public DateTime CreatedAt { get; set; }
+        public DateTime? CreatedAt { get; set; }
         /// <summary>
         /// When was updated
         /// </summary>
         /// <value></value>
-        public DateTime UpdatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
 
         /// <summary>
         /// Toggles states related to a given service

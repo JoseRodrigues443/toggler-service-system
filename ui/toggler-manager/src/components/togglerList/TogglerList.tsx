@@ -35,7 +35,7 @@ export class TogglerList extends Component<TogglerListProps, TogglerListState> {
     buildCards(toggles: Toggle[]) {
         return toggles.map((toggle, index) => {
             return (
-                <Card>
+                <Card key={toggle.id}>
                     <Accordion.Toggle as={Card.Header} eventKey={`${index}`}>
                         {toggle.key}
                     </Accordion.Toggle>

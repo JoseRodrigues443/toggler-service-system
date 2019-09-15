@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TogglerApi.Models.Toggle
 {
@@ -9,6 +11,7 @@ namespace TogglerApi.Models.Toggle
         /// Identifier
         /// </summary>
         /// <value></value>
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
 
         /// <summary>
