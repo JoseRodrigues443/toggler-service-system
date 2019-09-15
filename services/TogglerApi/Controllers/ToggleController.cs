@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TogglerApi.Models.Toggle;
 using TogglerApi.Context;
-using Microsoft.EntityFrameworkCore;
+
 
 namespace TogglerApi.Controllers
 {
@@ -49,20 +50,6 @@ namespace TogglerApi.Controllers
             }
 
             return toReturn;
-        }
-
-        // GET api/toggle/5/states
-        [HttpGet("states/{id}")]
-        public async Task<ActionResult<IEnumerable<ToggleState>>> GetToggleStates(long id)
-        {
-            var toReturn = await _toggleContext.Toggles.FindAsync(id);
-
-            if (toReturn == null)
-            {
-                return NotFound();
-            }
-
-            return toReturn.States;
         }
 
 

@@ -133,6 +133,46 @@ export class ServiceClient {
         return Promise.resolve<FileResponse | null>(<any>null);
     }
 
+    patch(id: number | undefined, value: Service): Promise<FileResponse | null> {
+        let url_ = this.baseUrl + "/api/Service?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(value);
+
+        let options_ = <RequestInit>{
+            body: content_,
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/octet-stream"
+            }
+        };
+
+        return this.http.fetch(url_, options_).then((_response: Response) => {
+            return this.processPatch(_response);
+        });
+    }
+
+    protected processPatch(response: Response): Promise<FileResponse | null> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200 || status === 206) {
+            const contentDisposition = response.headers ? response.headers.get("content-disposition") : undefined;
+            const fileNameMatch = contentDisposition ? /filename="?([^"]*?)"?(;|$)/g.exec(contentDisposition) : undefined;
+            const fileName = fileNameMatch && fileNameMatch.length > 1 ? fileNameMatch[1] : undefined;
+            return response.blob().then(blob => { return { fileName: fileName, data: blob, status: status, headers: _headers }; });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<FileResponse | null>(<any>null);
+    }
+
     get(id: number): Promise<Service> {
         let url_ = this.baseUrl + "/api/Service/{id}";
         if (id === undefined || id === null)
@@ -203,6 +243,47 @@ export class ServiceClient {
             });
         }
         return Promise.resolve<FileResponse | null>(<any>null);
+    }
+
+    getServiceStates(id: number): Promise<ToggleState[]> {
+        let url_ = this.baseUrl + "/api/Service/states/{id}";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined.");
+        url_ = url_.replace("{id}", encodeURIComponent("" + id)); 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ = <RequestInit>{
+            method: "GET",
+            headers: {
+                "Accept": "application/json"
+            }
+        };
+
+        return this.http.fetch(url_, options_).then((_response: Response) => {
+            return this.processGetServiceStates(_response);
+        });
+    }
+
+    protected processGetServiceStates(response: Response): Promise<ToggleState[]> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(ToggleState.fromJS(item));
+            }
+            return result200;
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<ToggleState[]>(<any>null);
     }
 }
 
@@ -317,6 +398,46 @@ export class ToggleClient {
     }
 
     protected processPut(response: Response): Promise<FileResponse | null> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200 || status === 206) {
+            const contentDisposition = response.headers ? response.headers.get("content-disposition") : undefined;
+            const fileNameMatch = contentDisposition ? /filename="?([^"]*?)"?(;|$)/g.exec(contentDisposition) : undefined;
+            const fileName = fileNameMatch && fileNameMatch.length > 1 ? fileNameMatch[1] : undefined;
+            return response.blob().then(blob => { return { fileName: fileName, data: blob, status: status, headers: _headers }; });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<FileResponse | null>(<any>null);
+    }
+
+    patch(id: number | undefined, value: Toggle): Promise<FileResponse | null> {
+        let url_ = this.baseUrl + "/api/Toggle?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(value);
+
+        let options_ = <RequestInit>{
+            body: content_,
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/octet-stream"
+            }
+        };
+
+        return this.http.fetch(url_, options_).then((_response: Response) => {
+            return this.processPatch(_response);
+        });
+    }
+
+    protected processPatch(response: Response): Promise<FileResponse | null> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200 || status === 206) {
@@ -491,7 +612,7 @@ export class ToggleStateClient {
         return Promise.resolve<ToggleState>(<any>null);
     }
 
-    put(id: number | undefined, value: ToggleState): Promise<FileResponse | null> {
+    put(id: number | undefined, toggleState: ToggleState): Promise<FileResponse | null> {
         let url_ = this.baseUrl + "/api/ToggleState?";
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
@@ -499,7 +620,7 @@ export class ToggleStateClient {
             url_ += "id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
-        const content_ = JSON.stringify(value);
+        const content_ = JSON.stringify(toggleState);
 
         let options_ = <RequestInit>{
             body: content_,
@@ -516,6 +637,46 @@ export class ToggleStateClient {
     }
 
     protected processPut(response: Response): Promise<FileResponse | null> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200 || status === 206) {
+            const contentDisposition = response.headers ? response.headers.get("content-disposition") : undefined;
+            const fileNameMatch = contentDisposition ? /filename="?([^"]*?)"?(;|$)/g.exec(contentDisposition) : undefined;
+            const fileName = fileNameMatch && fileNameMatch.length > 1 ? fileNameMatch[1] : undefined;
+            return response.blob().then(blob => { return { fileName: fileName, data: blob, status: status, headers: _headers }; });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<FileResponse | null>(<any>null);
+    }
+
+    patch(id: number | undefined, toggleState: ToggleState): Promise<FileResponse | null> {
+        let url_ = this.baseUrl + "/api/ToggleState?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(toggleState);
+
+        let options_ = <RequestInit>{
+            body: content_,
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/octet-stream"
+            }
+        };
+
+        return this.http.fetch(url_, options_).then((_response: Response) => {
+            return this.processPatch(_response);
+        });
+    }
+
+    protected processPatch(response: Response): Promise<FileResponse | null> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200 || status === 206) {
@@ -612,9 +773,9 @@ export class Service implements IService {
     /** Service Description */
     description?: string | undefined;
     /** When was created */
-    createdAt!: Date;
+    createdAt?: Date | undefined;
     /** When was updated */
-    updatedAt!: Date;
+    updatedAt?: Date | undefined;
     /** Toggles states related to a given service */
     states?: ToggleState[] | undefined;
 
@@ -673,9 +834,9 @@ export interface IService {
     /** Service Description */
     description?: string | undefined;
     /** When was created */
-    createdAt: Date;
+    createdAt?: Date | undefined;
     /** When was updated */
-    updatedAt: Date;
+    updatedAt?: Date | undefined;
     /** Toggles states related to a given service */
     states?: ToggleState[] | undefined;
 }
@@ -686,11 +847,15 @@ export class ToggleState implements IToggleState {
     /** The toggle value for a given service */
     value!: boolean;
     /** When was created */
-    createdAt!: Date;
+    createdAt?: Date | undefined;
     /** When was updated */
-    updatedAt!: Date;
+    updatedAt?: Date | undefined;
+    /** Toggle foreign key */
+    toggleId!: number;
     /** The related Toggle */
     toggle?: Toggle | undefined;
+    /** Service foreign key */
+    serviceId!: number;
     /** The related Service */
     service?: Service | undefined;
 
@@ -709,7 +874,9 @@ export class ToggleState implements IToggleState {
             this.value = data["value"];
             this.createdAt = data["createdAt"] ? new Date(data["createdAt"].toString()) : <any>undefined;
             this.updatedAt = data["updatedAt"] ? new Date(data["updatedAt"].toString()) : <any>undefined;
+            this.toggleId = data["toggleId"];
             this.toggle = data["toggle"] ? Toggle.fromJS(data["toggle"]) : <any>undefined;
+            this.serviceId = data["serviceId"];
             this.service = data["service"] ? Service.fromJS(data["service"]) : <any>undefined;
         }
     }
@@ -727,7 +894,9 @@ export class ToggleState implements IToggleState {
         data["value"] = this.value;
         data["createdAt"] = this.createdAt ? this.createdAt.toISOString() : <any>undefined;
         data["updatedAt"] = this.updatedAt ? this.updatedAt.toISOString() : <any>undefined;
+        data["toggleId"] = this.toggleId;
         data["toggle"] = this.toggle ? this.toggle.toJSON() : <any>undefined;
+        data["serviceId"] = this.serviceId;
         data["service"] = this.service ? this.service.toJSON() : <any>undefined;
         return data; 
     }
@@ -739,11 +908,15 @@ export interface IToggleState {
     /** The toggle value for a given service */
     value: boolean;
     /** When was created */
-    createdAt: Date;
+    createdAt?: Date | undefined;
     /** When was updated */
-    updatedAt: Date;
+    updatedAt?: Date | undefined;
+    /** Toggle foreign key */
+    toggleId: number;
     /** The related Toggle */
     toggle?: Toggle | undefined;
+    /** Service foreign key */
+    serviceId: number;
     /** The related Service */
     service?: Service | undefined;
 }
@@ -756,9 +929,9 @@ export class Toggle implements IToggle {
     /** Toggle Description */
     description?: string | undefined;
     /** When was created */
-    createdAt!: Date;
+    createdAt?: Date | undefined;
     /** When was updated */
-    updatedAt!: Date;
+    updatedAt?: Date | undefined;
     /** Toggles states related to a given service */
     states?: ToggleState[] | undefined;
 
@@ -817,9 +990,9 @@ export interface IToggle {
     /** Toggle Description */
     description?: string | undefined;
     /** When was created */
-    createdAt: Date;
+    createdAt?: Date | undefined;
     /** When was updated */
-    updatedAt: Date;
+    updatedAt?: Date | undefined;
     /** Toggles states related to a given service */
     states?: ToggleState[] | undefined;
 }

@@ -200,9 +200,21 @@
             </summary>
             <value></value>
         </member>
+        <member name="P:TogglerApi.Models.Toggle.ToggleState.ToggleId">
+            <summary>
+            Toggle foreign key
+            </summary>
+            <value></value>
+        </member>
         <member name="P:TogglerApi.Models.Toggle.ToggleState.Toggle">
             <summary>
             The related Toggle
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:TogglerApi.Models.Toggle.ToggleState.ServiceId">
+            <summary>
+            Service foreign key
             </summary>
             <value></value>
         </member>

@@ -53,7 +53,7 @@ export class ServiceList extends Component<ServiceListProps, ServiceListState> {
                                     </Button>
                                 </Col>
                                 <Col xs lg="2">
-                                    <Button href={`/service/${service.id}/relations`}>
+                                    <Button href={`/services/${service.id}/relations`}>
                                         Service Toggles
                                     </Button>
                                 </Col>

@@ -23,19 +23,29 @@ namespace TogglerApi.Models.Toggle
         /// When was created
         /// </summary>
         /// <value></value>
-        public DateTime CreatedAt { get; set; }
+        public DateTime? CreatedAt { get; set; }
         /// <summary>
         /// When was updated
         /// </summary>
         /// <value></value>
-        public DateTime UpdatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
 
+        /// <summary>
+        /// Toggle foreign key
+        /// </summary>
+        /// <value></value>
+        public long ToggleId { get; set; }
         /// <summary>
         /// The related Toggle
         /// </summary>
         /// <value></value>
         public Toggle Toggle { get; set; }
 
+        /// <summary>
+        /// Service foreign key
+        /// </summary>
+        /// <value></value>
+        public long ServiceId { get; set; }
         /// <summary>
         /// The related Service
         /// </summary>
