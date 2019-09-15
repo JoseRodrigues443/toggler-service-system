@@ -1,20 +1,20 @@
 import React, { Component } from 'react'; // let's also import Component
 // SDK
-import { Toggle } from "../../sdk/togglerApiClient/TogglerApi"
+import { Service } from "../../../sdk/togglerApiClient/TogglerApi"
 
 // Components
 import { Accordion, Card, Alert, Container, ButtonToolbar, Button,Badge } from 'react-bootstrap'
 
 
-type TogglerListProps = {
-    toggles: Toggle[]
+type ServiceListProps = {
+    toggles: Service[]
 };
-type TogglerListState = {};
+type ServiceListState = {};
 
 /**
  * Toggle manager
  */
-export class TogglerList extends Component<TogglerListProps, TogglerListState> {
+export class ServiceList extends Component<ServiceListProps, ServiceListState> {
 
     /**
      * Renders toggle manager
@@ -32,19 +32,19 @@ export class TogglerList extends Component<TogglerListProps, TogglerListState> {
      * Builds cards
      * @returns  
      */
-    buildCards(toggles: Toggle[]) {
-        return toggles.map((toggle, index) => {
+    buildCards(services: Service[]) {
+        return services.map((service, index) => {
             return (
-                <Card key={toggle.id}>
+                <Card key={service.id}>
                     <Accordion.Toggle as={Card.Header} eventKey={`${index}`}>
-                        {toggle.key}
+                        {service.key}
                     </Accordion.Toggle>
                     <Accordion.Collapse eventKey={`${index}`}>
                         <Card.Body>
                             <Card.Text>
-                                {toggle.description}
+                                {service.description}
                             </Card.Text>
-                            <Button href={`/toggle/${toggle.id}/edit`}>
+                            <Button href={`/service/${service.id}/edit`}>
                                 Edit
                             </Button>
                         </Card.Body>
@@ -55,4 +55,4 @@ export class TogglerList extends Component<TogglerListProps, TogglerListState> {
     }
 }
 
-export default TogglerList;
+export default ServiceList;

@@ -5,28 +5,28 @@ import { RouteComponentProps } from 'react-router';
 import { ToggleClient, Toggle } from "../../../sdk/togglerApiClient/TogglerApi"
 
 // Components
-import CreateEditToggle from "../../../components/createEditToggle/CreateEditToggle";
+import CreateEditService from "../../../components/serviceComponenets/createEdit/CreateEditService";
 
 
 /**
  * Toggle manager
  */
-export class ToggleCreateView extends Component<RouteComponentProps> {
+export class ServiceCreateView extends Component<RouteComponentProps> {
 
 
   render() {
     const toRender = this.buildView();
     return (
-      <div className="ToggleCreateView">
+      <div className="ServiceCreateView">
         {toRender}
       </div>
     );
   }
   buildView() {
     return (<>
-      <CreateEditToggle/>
+      <CreateEditService/>
     </>);
   }
 }
 
-export default ToggleCreateView;
+export default ServiceCreateView;

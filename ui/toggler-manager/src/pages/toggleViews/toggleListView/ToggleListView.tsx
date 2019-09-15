@@ -4,8 +4,8 @@ import React, { Component } from 'react'; // let's also import Component
 import { ToggleClient, Toggle } from "../../../sdk/togglerApiClient/TogglerApi"
 
 // Components
-import TogglerList from "../../../components/togglerList/TogglerList";
-import CreateEditToggle from "../../../components/createEditToggle/CreateEditToggle"
+import TogglerList from "../../../components/toggleComponents/list/TogglerList";
+import CreateEditToggle from "../../../components/toggleComponents/createEdit/CreateEditToggle"
 
 // bootstrap Components
 import { Col, Row,Button } from 'react-bootstrap'

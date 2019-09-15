@@ -53,7 +53,7 @@ namespace TogglerApi.Controllers
 
 
         // GET api/service/5/states
-        [HttpGet("{id}/states")]
+        [HttpGet("states/{id}")]
         public async Task<ActionResult<IEnumerable<ToggleState>>> GetServiceStates(long id)
         {
             var toReturn = await _toggleContext.Services.FindAsync(id);

@@ -5,13 +5,13 @@ import { RouteComponentProps } from 'react-router';
 import { ToggleClient, Toggle } from "../../../sdk/togglerApiClient/TogglerApi"
 
 // Components
-import CreateEditToggle from "../../../components/createEditToggle/CreateEditToggle";
+import CreateEditService from "../../../components/serviceComponenets/createEdit/CreateEditService";
 
 
 /**
  * Toggle manager
  */
-export class ToggleEditView extends Component<RouteComponentProps> {
+export class ServiceEditView extends Component<RouteComponentProps> {
 
 
   render() {
@@ -24,9 +24,9 @@ export class ToggleEditView extends Component<RouteComponentProps> {
   }
   buildView() {
     return (<>
-      <CreateEditToggle id={(this.props.match.params as any).id} />
+      <CreateEditService id={(this.props.match.params as any).id} />
     </>);
   }
 }
 
-export default ToggleEditView;
+export default ServiceEditView;

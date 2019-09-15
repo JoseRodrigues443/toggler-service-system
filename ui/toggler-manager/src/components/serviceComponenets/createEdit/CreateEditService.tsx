@@ -1,6 +1,6 @@
 import React, { Component } from 'react'; // let's also import Component
 
-import { ToggleClient, Toggle, IToggle } from "../../sdk/togglerApiClient/TogglerApi"
+import { IService, ServiceClient, Service } from "../../../sdk/togglerApiClient/TogglerApi";
 
 // Components
 import { Form, Button, Row, Col } from 'react-bootstrap'
@@ -9,12 +9,12 @@ import { Form, Button, Row, Col } from 'react-bootstrap'
 /**
  * Toggle manager
  */
-export class CreateEditToggle extends Component<{ id?: number }, IToggle> {
+export class CreateEditService extends Component<{ id?: number }, IService> {
 
     /**
-     * Toggle client of toggler list
+     * Service client of service list
      */
-    public readonly toggleClient = new ToggleClient();
+    public readonly serviceClient = new ServiceClient();
 
     /**
      * Creates an instance of create edit toggle.
@@ -34,14 +34,14 @@ export class CreateEditToggle extends Component<{ id?: number }, IToggle> {
             states: []
         }
         if (this.props.id != null) {
-            const toggle = await this.toggleClient.get(this.props.id);
+            const service = await this.serviceClient.get(this.props.id);
             this.setState({
-                id: toggle.id,
-                createdAt: toggle.createdAt,
+                id: service.id,
+                createdAt: service.createdAt,
                 updatedAt: new Date(),
-                description: toggle.description,
-                key: toggle.key,
-                states: toggle.states
+                description: service.description,
+                key: service.key,
+                states: service.states
             })
         }
     }
@@ -58,23 +58,18 @@ export class CreateEditToggle extends Component<{ id?: number }, IToggle> {
 
 
     async serviceCall() {
+        const service = new Service({
+            id: this.state.id,
+            createdAt: this.state.createdAt,
+            updatedAt: this.state.updatedAt,
+            description: this.state.description,
+            key: this.state.key
+        });
         if (this.props.id == null) {
-            const result = await this.toggleClient.post(new Toggle({
-                id: this.state.id,
-                createdAt: this.state.createdAt,
-                updatedAt: this.state.updatedAt,
-                description: this.state.description,
-                key: this.state.key
-            }));
+            const result = await this.serviceClient.post(service);
         } else {
             // update
-            const result = await this.toggleClient.put(this.props.id, new Toggle({
-                id: this.state.id,
-                createdAt: this.state.createdAt,
-                updatedAt: this.state.updatedAt,
-                description: this.state.description,
-                key: this.state.key
-            }));
+            const result = await this.serviceClient.put(this.props.id, service);
         }
     }
 
@@ -101,7 +96,7 @@ export class CreateEditToggle extends Component<{ id?: number }, IToggle> {
      * @returns  
      */
     render() {
-        const title = this.props.id ? <h1>Edit Toggle</h1> : <h1>Create Toggle</h1>;
+        const title = this.props.id ? <h1>Create Service</h1> : <h1>Create Service</h1>;
         return (
             <div>
                 {title}
@@ -112,10 +107,10 @@ export class CreateEditToggle extends Component<{ id?: number }, IToggle> {
                         </Form.Label>
                         <Col sm="10">
                             <Form.Control value={this.state.key} onChange={this.handleKeyChange}
-                                type="text" placeholder="Enter Toggle Key Identifier" required
+                                type="text" placeholder="Enter Service Key Identifier" required
                             />
                             <Form.Text className="text-muted">
-                                Used used to identify the toggle
+                                Used used to identify the service
                             </Form.Text>
                         </Col>
                     </Form.Group>
@@ -142,4 +137,4 @@ export class CreateEditToggle extends Component<{ id?: number }, IToggle> {
 
 }
 
-export default CreateEditToggle;
+export default CreateEditService;

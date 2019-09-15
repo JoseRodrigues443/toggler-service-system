@@ -1,6 +1,6 @@
 import React, { Component } from 'react'; // let's also import Component
 
-import { ToggleClient, Toggle, IToggle } from "../../sdk/togglerApiClient/TogglerApi"
+import { ToggleClient, Toggle, IToggle } from "../../../sdk/togglerApiClient/TogglerApi";
 
 // Components
 import { Form, Button, Row, Col } from 'react-bootstrap'

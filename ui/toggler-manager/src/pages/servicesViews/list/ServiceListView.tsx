@@ -4,8 +4,8 @@ import React, { Component } from 'react'; // let's also import Component
 import { ServiceClient, Service } from "../../../sdk/togglerApiClient/TogglerApi"
 
 // Components
-import TogglerList from "../../../components/togglerList/TogglerList";
-import CreateEditToggle from "../../../components/createEditToggle/CreateEditToggle"
+import ServiceList from "../../../components/serviceComponenets/list/ServiceList";
+import CreateEditService from "../../../components/serviceComponenets/createEdit/CreateEditService"
 
 // bootstrap Components
 import { Col, Row,Button } from 'react-bootstrap'
@@ -29,7 +29,7 @@ export class ServiceListView extends Component<{}, ServiceListViewState> {
   /**
    * Loads toggles
    */
-  async loadToggles() {
+  async loadServices() {
     const togglerList = await this.serviceClient.getAll();
     this.setState({
       services: togglerList
@@ -40,7 +40,7 @@ export class ServiceListView extends Component<{}, ServiceListViewState> {
    * Components did mount
    */
   componentDidMount() {
-    this.loadToggles();
+    this.loadServices();
   }
 
   render() {
@@ -52,7 +52,7 @@ export class ServiceListView extends Component<{}, ServiceListViewState> {
     );
   }
   buildView() {
-    if (this.state == null || this.state.toggles == null || this.state.toggles.length === 0) {
+    if (this.state == null || this.state.services == null || this.state.services.length === 0) {
       return <CreateEditService />;
     }
     return (<>
@@ -65,9 +65,9 @@ export class ServiceListView extends Component<{}, ServiceListViewState> {
         </Col>
       </Row>
       <br />
-      <TogglerList toggles={this.state.toggles} />
+      <ServiceList toggles={this.state.services} />
     </>);
   }
 }
 
-export default ToggleListView;
+export default ServiceListView;
