@@ -26,7 +26,6 @@ export class CreateEditService extends Component<{ id?: number }, IService> {
 
     async defineState() {
         this.state = {
-            id: -1,
             createdAt: new Date(),
             updatedAt: new Date(),
             description: "",
@@ -96,7 +95,7 @@ export class CreateEditService extends Component<{ id?: number }, IService> {
      * @returns  
      */
     render() {
-        const title = this.props.id ? <h1>Create Service</h1> : <h1>Create Service</h1>;
+        const title = this.props.id ? <h1>Edit Service</h1> : <h1>Create Service</h1>;
         return (
             <div>
                 {title}

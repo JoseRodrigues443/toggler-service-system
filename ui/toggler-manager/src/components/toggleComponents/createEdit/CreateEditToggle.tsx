@@ -26,7 +26,6 @@ export class CreateEditToggle extends Component<{ id?: number }, IToggle> {
 
     async defineState() {
         this.state = {
-            id: -1,
             createdAt: new Date(),
             updatedAt: new Date(),
             description: "",

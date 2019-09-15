@@ -606,7 +606,7 @@ export class ToggleStateClient {
 
 export class Service implements IService {
     /** Identifier */
-    id!: number;
+    id?: number;
     /** Service Identifier */
     key?: string | undefined;
     /** Service Description */
@@ -667,7 +667,7 @@ export class Service implements IService {
 
 export interface IService {
     /** Identifier */
-    id: number;
+    id?: number;
     /** Service Identifier */
     key?: string | undefined;
     /** Service Description */
@@ -682,7 +682,7 @@ export interface IService {
 
 export class ToggleState implements IToggleState {
     /** Identifier */
-    id!: number;
+    id?: number;
     /** The toggle value for a given service */
     value!: boolean;
     /** When was created */
@@ -735,7 +735,7 @@ export class ToggleState implements IToggleState {
 
 export interface IToggleState {
     /** Identifier */
-    id: number;
+    id?: number;
     /** The toggle value for a given service */
     value: boolean;
     /** When was created */
@@ -750,7 +750,7 @@ export interface IToggleState {
 
 export class Toggle implements IToggle {
     /** Identifier */
-    id!: number;
+    id?: number;
     /** Toggle Identifier */
     key?: string | undefined;
     /** Toggle Description */
@@ -811,7 +811,7 @@ export class Toggle implements IToggle {
 
 export interface IToggle {
     /** Identifier */
-    id: number;
+    id?: number;
     /** Toggle Identifier */
     key?: string | undefined;
     /** Toggle Description */

@@ -3,7 +3,9 @@ import React, { Component } from 'react'; // let's also import Component
 import { Service } from "../../../sdk/togglerApiClient/TogglerApi"
 
 // Components
-import { Accordion, Card, Alert, Container, ButtonToolbar, Button,Badge } from 'react-bootstrap'
+import {
+    Accordion, Card, Button, Badge, Row, Col
+} from 'react-bootstrap'
 
 
 type ServiceListProps = {
@@ -44,9 +46,18 @@ export class ServiceList extends Component<ServiceListProps, ServiceListState> {
                             <Card.Text>
                                 {service.description}
                             </Card.Text>
-                            <Button href={`/service/${service.id}/edit`}>
-                                Edit
-                            </Button>
+                            <Row>
+                                <Col>
+                                    <Button href={`/service/${service.id}/edit`}>
+                                        Edit
+                                    </Button>
+                                </Col>
+                                <Col xs lg="2">
+                                    <Button href={`/service/${service.id}/relations`}>
+                                        Service Toggles
+                                    </Button>
+                                </Col>
+                            </Row>
                         </Card.Body>
                     </Accordion.Collapse>
                 </Card>

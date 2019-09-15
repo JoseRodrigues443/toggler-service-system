@@ -4,8 +4,8 @@ import React, { Component } from 'react'; // let's also import Component
 import { ServiceClient, Service } from "../../../sdk/togglerApiClient/TogglerApi"
 
 // Components
-import ServiceList from "../../../components/serviceComponenets/list/ServiceList";
-import CreateEditService from "../../../components/serviceComponenets/createEdit/CreateEditService"
+import ServiceList from "../../../components/serviceComponents/list/ServiceList";
+import CreateEditService from "../../../components/serviceComponents/createEdit/CreateEditService"
 
 // bootstrap Components
 import { Col, Row,Button } from 'react-bootstrap'
@@ -58,10 +58,10 @@ export class ServiceListView extends Component<{}, ServiceListViewState> {
     return (<>
       <Row>
         <Col>
-          <h1>Toggle List</h1>
+          <h1>Service List</h1>
         </Col>
         <Col xs lg="2">
-          <Button href="/toggles/create">Add Toggle</Button>
+          <Button href="/services/create">Add Service</Button>
         </Col>
       </Row>
       <br />

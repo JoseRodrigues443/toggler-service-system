@@ -5,7 +5,7 @@ import { RouteComponentProps } from 'react-router';
 import { ToggleClient, Toggle } from "../../../sdk/togglerApiClient/TogglerApi"
 
 // Components
-import CreateEditService from "../../../components/serviceComponenets/createEdit/CreateEditService";
+import CreateEditService from "../../../components/serviceComponents/createEdit/CreateEditService";
 
 
 /**

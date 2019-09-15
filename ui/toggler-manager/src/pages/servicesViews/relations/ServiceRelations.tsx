@@ -11,22 +11,20 @@ import CreateEditService from "../../../components/serviceComponents/createEdit/
 /**
  * Toggle manager
  */
-export class ServiceEditView extends Component<RouteComponentProps> {
+export class ServiceRelations extends Component<RouteComponentProps> {
 
 
   render() {
     const toRender = this.buildView();
     return (
-      <div className="ToggleListView">
+      <div className="ServiceRelations">
         {toRender}
       </div>
     );
   }
   buildView() {
-    return (<>
-      <CreateEditService id={(this.props.match.params as any).id} />
-    </>);
+    return (<h1>1111</h1>);
   }
 }
 
-export default ServiceEditView;
+export default ServiceRelations;
