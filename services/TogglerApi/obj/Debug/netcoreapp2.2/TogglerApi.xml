@@ -4,35 +4,21 @@
         <name>TogglerApi</name>
     </assembly>
     <members>
-        <member name="P:TogglerApi.Context.ServiceContext.Services">
+        <member name="P:TogglerApi.Context.ToggleContext.Toggles">
+            <summary>
+            Toggles in system
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:TogglerApi.Context.ToggleContext.Services">
             <summary>
             Services in system
             </summary>
             <value></value>
         </member>
-        <member name="M:TogglerApi.Context.ServiceContext.SaveChanges(System.Boolean)">
+        <member name="P:TogglerApi.Context.ToggleContext.States">
             <summary>
-            Save Changes
-            </summary>
-            <param name="acceptAllChangesOnSuccess"></param>
-            <returns></returns>
-        </member>
-        <member name="M:TogglerApi.Context.ServiceContext.SaveChangesAsync(System.Boolean,System.Threading.CancellationToken)">
-            <summary>
-            
-            </summary>
-            <param name="acceptAllChangesOnSuccess"></param>
-            <param name="cancellationToken"></param>
-            <returns></returns>
-        </member>
-        <member name="M:TogglerApi.Context.ServiceContext.OnBeforeSaving">
-            <summary>
-            Alters the instance to add tracking columns
-            </summary>
-        </member>
-        <member name="P:TogglerApi.Context.ToggleContext.Toggles">
-            <summary>
-            Toggles in system
+            Toggle states in system
             </summary>
             <value></value>
         </member>
@@ -56,43 +42,17 @@
             Alters the instance to add tracking columns
             </summary>
         </member>
-        <member name="P:TogglerApi.Context.ToggleStateContext.States">
-            <summary>
-            Toggle states in system
-            </summary>
-            <value></value>
-        </member>
-        <member name="M:TogglerApi.Context.ToggleStateContext.SaveChanges(System.Boolean)">
-            <summary>
-            Save Changes
-            </summary>
-            <param name="acceptAllChangesOnSuccess"></param>
-            <returns></returns>
-        </member>
-        <member name="M:TogglerApi.Context.ToggleStateContext.SaveChangesAsync(System.Boolean,System.Threading.CancellationToken)">
-            <summary>
-            
-            </summary>
-            <param name="acceptAllChangesOnSuccess"></param>
-            <param name="cancellationToken"></param>
-            <returns></returns>
-        </member>
-        <member name="M:TogglerApi.Context.ToggleStateContext.OnBeforeSaving">
-            <summary>
-            Alters the instance to add tracking columns
-            </summary>
-        </member>
         <member name="M:TogglerApi.Context.TrackableUtils.manageTrackableColumns(System.Collections.Generic.IEnumerable{Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry})">
             <summary>
             Alters the instance to add tracking columns
             </summary>
         </member>
-        <member name="F:TogglerApi.Controllers.ServiceController._serviceContext">
+        <member name="F:TogglerApi.Controllers.ServiceController._toggleContext">
             <summary>
-            Service context to the database
+            Toggle context to the database
             </summary>
         </member>
-        <member name="M:TogglerApi.Controllers.ServiceController.#ctor(TogglerApi.Context.ServiceContext)">
+        <member name="M:TogglerApi.Controllers.ServiceController.#ctor(TogglerApi.Context.ToggleContext)">
             <summary>
             Constructor
             </summary>
@@ -109,12 +69,12 @@
             </summary>
             <param name="context"></param>
         </member>
-        <member name="F:TogglerApi.Controllers.ToggleStateController._toggleStateContext">
+        <member name="F:TogglerApi.Controllers.ToggleStateController._toggleContext">
             <summary>
             Toggle context to the database
             </summary>
         </member>
-        <member name="M:TogglerApi.Controllers.ToggleStateController.#ctor(TogglerApi.Context.ToggleStateContext)">
+        <member name="M:TogglerApi.Controllers.ToggleStateController.#ctor(TogglerApi.Context.ToggleContext)">
             <summary>
             Constructor
             </summary>
