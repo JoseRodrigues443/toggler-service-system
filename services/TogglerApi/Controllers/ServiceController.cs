@@ -76,6 +76,22 @@ namespace TogglerApi.Controllers
             return NoContent(); // 204 (No Content), according to HTTP specification
         }
 
+        
+        // Patch api/service
+        [HttpPatch]
+        public async Task<IActionResult> Patch(long id, [FromBody] Service value)
+        {
+            if (id != value.Id)
+            {
+                return BadRequest();
+            }
+
+            _toggleContext.Entry(value).State = EntityState.Modified;
+            await _toggleContext.SaveChangesAsync();
+
+            return NoContent(); // 204 (No Content), according to HTTP specification
+        }
+
         // DELETE api/service/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(long id)

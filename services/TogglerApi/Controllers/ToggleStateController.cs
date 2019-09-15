@@ -85,6 +85,30 @@ namespace TogglerApi.Controllers
             return NoContent(); // 204 (No Content), according to HTTP specification
         }
 
+        
+        // Patch toggle/state
+        [HttpPatch]
+        public async Task<IActionResult> Patch(long id, [FromBody] ToggleState toggleState)
+        {
+            if (id != toggleState.Id)
+            {
+                return BadRequest();
+            }
+
+            _toggleContext.Entry(toggleState).State = EntityState.Modified;
+            await _toggleContext.SaveChangesAsync();
+
+            // publish toggleState change
+            RabbitMqClient.Publish(new TogglerStateMessage
+            {
+                ToggleKey = toggleState.Toggle.Key,
+                Value = toggleState.Value
+            }, toggleState.Service.Key);
+
+            return NoContent(); // 204 (No Content), according to HTTP specification
+        }
+
+
         // DELETE api/toggle/state/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(long id)
