@@ -245,8 +245,8 @@ export class ServiceClient {
         return Promise.resolve<FileResponse | null>(<any>null);
     }
 
-    getServiceStates(id: number): Promise<ToggleState[]> {
-        let url_ = this.baseUrl + "/api/Service/states/{id}";
+    getServiceStates(id: number): Promise<Service> {
+        let url_ = this.baseUrl + "/api/Service/{id}/states";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
         url_ = url_.replace("{id}", encodeURIComponent("" + id)); 
@@ -264,18 +264,14 @@ export class ServiceClient {
         });
     }
 
-    protected processGetServiceStates(response: Response): Promise<ToggleState[]> {
+    protected processGetServiceStates(response: Response): Promise<Service> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            if (Array.isArray(resultData200)) {
-                result200 = [] as any;
-                for (let item of resultData200)
-                    result200!.push(ToggleState.fromJS(item));
-            }
+            result200 = Service.fromJS(resultData200);
             return result200;
             });
         } else if (status !== 200 && status !== 204) {
@@ -283,7 +279,7 @@ export class ServiceClient {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
-        return Promise.resolve<ToggleState[]>(<any>null);
+        return Promise.resolve<Service>(<any>null);
     }
 }
 
@@ -524,6 +520,43 @@ export class ToggleClient {
         }
         return Promise.resolve<FileResponse | null>(<any>null);
     }
+
+    getToggleStates(id: number): Promise<Toggle> {
+        let url_ = this.baseUrl + "/api/Toggle/{id}/states";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined.");
+        url_ = url_.replace("{id}", encodeURIComponent("" + id)); 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ = <RequestInit>{
+            method: "GET",
+            headers: {
+                "Accept": "application/json"
+            }
+        };
+
+        return this.http.fetch(url_, options_).then((_response: Response) => {
+            return this.processGetToggleStates(_response);
+        });
+    }
+
+    protected processGetToggleStates(response: Response): Promise<Toggle> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = Toggle.fromJS(resultData200);
+            return result200;
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<Toggle>(<any>null);
+    }
 }
 
 export class ToggleStateClient {
@@ -762,6 +795,46 @@ export class ToggleStateClient {
             });
         }
         return Promise.resolve<FileResponse | null>(<any>null);
+    }
+
+    getRelation(toggleKey: string | null, serviceKey: string | null): Promise<ToggleState> {
+        let url_ = this.baseUrl + "/api/ToggleState/toggle/{toggleKey}/service/{serviceKey}";
+        if (toggleKey === undefined || toggleKey === null)
+            throw new Error("The parameter 'toggleKey' must be defined.");
+        url_ = url_.replace("{toggleKey}", encodeURIComponent("" + toggleKey)); 
+        if (serviceKey === undefined || serviceKey === null)
+            throw new Error("The parameter 'serviceKey' must be defined.");
+        url_ = url_.replace("{serviceKey}", encodeURIComponent("" + serviceKey)); 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ = <RequestInit>{
+            method: "GET",
+            headers: {
+                "Accept": "application/json"
+            }
+        };
+
+        return this.http.fetch(url_, options_).then((_response: Response) => {
+            return this.processGetRelation(_response);
+        });
+    }
+
+    protected processGetRelation(response: Response): Promise<ToggleState> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ToggleState.fromJS(resultData200);
+            return result200;
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<ToggleState>(<any>null);
     }
 }
 

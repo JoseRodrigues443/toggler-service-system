@@ -2,14 +2,18 @@ import React, { Component } from 'react'; // let's also import Component
 import { RouteComponentProps } from 'react-router';
 
 // SDK
-import { ServiceClient, IService, Toggle } from "../../../sdk/togglerApiClient/TogglerApi"
+import {
+  ServiceClient, IService, Toggle, ToggleClient, ToggleStateClient, IToggleState, ToggleState
+} from "../../../sdk/togglerApiClient/TogglerApi"
+
 
 // Components
-
-import { Tab, Row, Col, Nav, Table } from 'react-bootstrap'
+import { CreateRelationModal } from "../../../components/serviceComponents/createEdit/CreateRelationModal";
+import { EditRelationModal } from "../../../components/serviceComponents/createEdit/EditRelationModal";
+import { Tab, Row, Col, Nav, Table, Button } from 'react-bootstrap';
 
 interface IServiceRelations {
-    toggles: Toggle[]
+  toggles: Toggle[]
 }
 
 /**
@@ -31,6 +35,23 @@ export class ServiceRelations extends Component<RouteComponentProps, IServiceRel
   public readonly serviceClient = new ServiceClient();
 
   /**
+   * Toggle client of service create view
+   */
+  public readonly toggleClient = new ToggleClient();
+
+  /**
+   * Toggle state client of service relations
+   */
+  public readonly toggleStateClient = new ToggleStateClient();
+
+
+
+  /**
+   * Toggles of service relations
+   */
+  private toggles: Toggle[] = [];
+
+  /**
    * Defines state
    */
   async defineState() {
@@ -44,17 +65,49 @@ export class ServiceRelations extends Component<RouteComponentProps, IServiceRel
       toggles: []
     }
     if (serviceId != null) {
-      const service = await this.serviceClient.get(serviceId);
+      const toggles = await this.toggleClient.getAll();
+      const service = await this.serviceClient.getServiceStates(serviceId);
+      const states = service.states;
+      for (const toggle of toggles) {
+        // not already added
+        if (states && states.findIndex(s => s.toggleId === toggle.id) < 0) {
+          this.toggles.push(toggle);
+        }
+      }
+
       this.setState({
         id: service.id,
         createdAt: service.createdAt,
         updatedAt: new Date(),
         description: service.description,
         key: service.key,
-        states: service.states
+        states: states
       })
     }
   }
+
+  handleSelectToggle = async (toggle: Toggle) => {
+    if (toggle && toggle.id && this.state.id) {
+      const state = new ToggleState({
+        createdAt: new Date(),
+        serviceId: this.state.id,
+        toggleId: toggle.id,
+        updatedAt: new Date(),
+        value: false
+      });
+      await this.toggleStateClient.post(state);
+      await this.defineState();
+    }
+  }
+
+  handleChange = async (state: ToggleState, value: boolean) => {
+    if (state && state.id && this.state.id) {
+      state.value = value;
+      await this.toggleStateClient.patch(state.id, state);
+      await this.defineState();
+    }
+  }
+
 
   render() {
     const toRender = this.buildView();
@@ -66,7 +119,7 @@ export class ServiceRelations extends Component<RouteComponentProps, IServiceRel
   }
 
   buildTable() {
-    return (
+    return (<>
       <Table striped bordered hover>
         <thead>
           <tr>
@@ -81,12 +134,78 @@ export class ServiceRelations extends Component<RouteComponentProps, IServiceRel
           </tr>
         </tbody>
       </Table>
+      <CreateRelationModal toggles={this.toggles} onSelect={this.handleSelectToggle} />
+    </>)
+  }
+
+  /**
+   * Builds tabs
+   * @returns
+   */
+  buildTabs() {
+    const toggleStates = this.state.states;
+    if (!toggleStates || toggleStates.length === 0) {
+      return <h1>
+        No Toggles available in this service
+      </h1>;
+    }
+    const tabs = [];
+    const tabsBody = [];
+    for (const state of toggleStates) {
+      if (state && state.toggle) {
+        // tas selector
+        tabs.push(
+          <Nav variant="pills" className="flex-column" key={`${state.id}`}>
+            <Nav.Item>
+              <Nav.Link eventKey={`${state.id}`}>{state.toggle.key}</Nav.Link>
+            </Nav.Item>
+          </Nav>
+        );
+        // body to show
+        tabsBody.push(
+          <Tab.Content key={`${state.id}`}>
+            <Tab.Pane eventKey={`${state.id}`}>
+              <h3>Toggle Data</h3>
+              <Table striped bordered hover>
+                <thead>
+                  <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Value</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{state.toggle.id}</td>
+                    <td>{state.toggle.key}</td>
+                    <td>{state.value ? 'True' : 'False'}</td>
+                  </tr>
+                </tbody>
+              </Table>
+              <EditRelationModal state={state} onChange={this.handleChange} />
+            </Tab.Pane>
+          </Tab.Content>
+        );
+      }
+    }
+    return (
+      <Tab.Container id="left-tabs-example" defaultActiveKey={`${toggleStates[0].id}`}>
+        <Row>
+          <Col sm={3}>
+            {tabs}
+          </Col>
+          <Col sm={9}>
+            {tabsBody}
+          </Col>
+        </Row>
+      </Tab.Container>
     )
   }
 
 
   buildView() {
     const table = this.buildTable()
+    const tabs = this.buildTabs()
     return <>
       <h1>Selected Service</h1>
       <hr />
@@ -96,28 +215,7 @@ export class ServiceRelations extends Component<RouteComponentProps, IServiceRel
       </h1>
       <hr />
       <Tab.Container id="left-tabs-example" defaultActiveKey="first">
-        <Row>
-          <Col sm={3}>
-            <Nav variant="pills" className="flex-column">
-              <Nav.Item>
-                <Nav.Link eventKey="first">Tab 1</Nav.Link>
-              </Nav.Item>
-              <Nav.Item>
-                <Nav.Link eventKey="second">Tab 2</Nav.Link>
-              </Nav.Item>
-            </Nav>
-          </Col>
-          <Col sm={9}>
-            <Tab.Content>
-              <Tab.Pane eventKey="first">
-                <h1>aaaaa</h1>
-              </Tab.Pane>
-              <Tab.Pane eventKey="second">
-                <h1>bbbb</h1>
-              </Tab.Pane>
-            </Tab.Content>
-          </Col>
-        </Row>
+        {tabs}
       </Tab.Container>
     </>
   }
