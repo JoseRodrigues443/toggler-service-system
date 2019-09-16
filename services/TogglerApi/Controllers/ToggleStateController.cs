@@ -53,6 +53,29 @@ namespace TogglerApi.Controllers
             return toReturn;
         }
 
+        // GET api/ToggleState/:ServiceName
+        [HttpGet("toggle/{toggleKey}/service/{serviceKey}")]
+        public ActionResult<ToggleState> GetRelation(string toggleKey, string serviceKey)
+        {
+            if (toggleKey == null || serviceKey == null)
+            {
+                return BadRequest();
+            }
+            var state = _toggleContext
+                            .States.Where(s => s.Toggle.Key == toggleKey)
+                            .Where(s => s.Service.Key == serviceKey)
+                            .Include(s => s.Service)
+                            .Include(s => s.Toggle)
+                            .FirstOrDefault();
+
+            if (state == null || state == null)
+            {
+                return NotFound();
+            }
+
+            return state;
+        }
+
 
 
         // POST api/toggle/state
@@ -86,7 +109,7 @@ namespace TogglerApi.Controllers
             return NoContent(); // 204 (No Content), according to HTTP specification
         }
 
-        
+
         // Patch toggle/state
         [HttpPatch]
         public async Task<IActionResult> Patch(long id, [FromBody] ToggleState toggleState)

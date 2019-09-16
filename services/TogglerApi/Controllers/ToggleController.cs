@@ -52,6 +52,20 @@ namespace TogglerApi.Controllers
             return toReturn;
         }
 
+        // GET api/toggle/states/5
+        // [HttpGet("states/{id}")]
+        // public async Task<ActionResult<IEnumerable<ToggleState>>> GetToggleStates(long id)
+        // {
+        //     var toReturn = await _toggleContext.Toggles.FindAsync(id);
+
+        //     if (toReturn == null)
+        //     {
+        //         return NotFound();
+        //     }
+
+        //     return await toReturn.States;
+        // }
+
 
         // POST api/toggle
         [HttpPost]
