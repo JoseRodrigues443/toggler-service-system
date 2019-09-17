@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TogglerApi.Context;
 
 namespace TogglerApi.Migrations
 {
     [DbContext(typeof(ToggleContext))]
-    partial class ToggleContextModelSnapshot : ModelSnapshot
+    [Migration("20190917221521_ToggleAndServiceKeyRestriction")]
+    partial class ToggleAndServiceKeyRestriction
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

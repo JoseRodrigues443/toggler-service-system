@@ -63,5 +63,13 @@ namespace TogglerApi.Context
             var entries = ChangeTracker.Entries();
             TrackableUtils.manageTrackableColumns(entries);
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Toggle>()
+                .HasAlternateKey(a => a.Key);
+            modelBuilder.Entity<Service>()
+                .HasAlternateKey(a => a.Key);
+        }
     }
 }

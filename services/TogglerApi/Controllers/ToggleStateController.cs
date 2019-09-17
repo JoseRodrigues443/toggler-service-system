@@ -100,11 +100,7 @@ namespace TogglerApi.Controllers
             await _toggleContext.SaveChangesAsync();
 
             // publish toggleState change
-            RabbitMqClient.Publish(new TogglerStateMessage
-            {
-                ToggleKey = toggleState.Toggle.Key,
-                Value = toggleState.Value
-            }, toggleState.Service.Key);
+            this.PublishToggleState(toggleState);
 
             return NoContent(); // 204 (No Content), according to HTTP specification
         }
@@ -123,13 +119,24 @@ namespace TogglerApi.Controllers
             await _toggleContext.SaveChangesAsync();
 
             // publish toggleState change
+            this.PublishToggleState(toggleState);
+
+            return NoContent(); // 204 (No Content), according to HTTP specification
+        }
+
+
+        /// <summary>
+        /// Publish ToggleState updated message
+        /// </summary>
+        /// <param name="toggleState"></param>
+        public void PublishToggleState(ToggleState toggleState)
+        {
             RabbitMqClient.Publish(new TogglerStateMessage
             {
                 ToggleKey = toggleState.Toggle.Key,
-                Value = toggleState.Value
+                Value = toggleState.Value,
+                ServiceKey = toggleState.Service.Key
             }, toggleState.Service.Key);
-
-            return NoContent(); // 204 (No Content), according to HTTP specification
         }
 
 
@@ -161,9 +168,24 @@ namespace TogglerApi.Controllers
         public string ToggleKey { get; set; }
 
         /// <summary>
+        /// The service key that is altered
+        /// </summary>
+        /// <value></value>
+        public string ServiceKey { get; set; }
+
+
+        /// <summary>
         /// Teh serviceToggle Value
         /// </summary>
         /// <value></value>
-        public bool Value { get; set; }
+        public bool? Value { get; set; }
+
+
+        /// <summary>
+        /// Is this a start message for a given service
+        /// </summary>
+        /// <value></value>
+        public bool? IsStartMessage { get; set; }
+
     }
 }
