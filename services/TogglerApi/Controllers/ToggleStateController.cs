@@ -32,14 +32,14 @@ namespace TogglerApi.Controllers
 
 
 
-        // GET api/toggle/state
+        // GET api/ToggleState
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ToggleState>>> Get()
         {
             return await _toggleContext.States.ToListAsync();
         }
 
-        // GET api/toggle/state/5
+        // GET api/ToggleState/5
         [HttpGet("{id}")]
         public async Task<ActionResult<ToggleState>> Get(long id)
         {
@@ -53,32 +53,8 @@ namespace TogglerApi.Controllers
             return toReturn;
         }
 
-        // GET api/ToggleState/:ServiceName
-        [HttpGet("toggle/{toggleKey}/service/{serviceKey}")]
-        public ActionResult<ToggleState> GetRelation(string toggleKey, string serviceKey)
-        {
-            if (toggleKey == null || serviceKey == null)
-            {
-                return BadRequest();
-            }
-            var state = _toggleContext
-                            .States.Where(s => s.Toggle.Key == toggleKey)
-                            .Where(s => s.Service.Key == serviceKey)
-                            .Include(s => s.Service)
-                            .Include(s => s.Toggle)
-                            .FirstOrDefault();
 
-            if (state == null || state == null)
-            {
-                return NotFound();
-            }
-
-            return state;
-        }
-
-
-
-        // POST api/toggle/state
+        // POST api/ToggleState
         [HttpPost]
         public async Task<ActionResult<ToggleState>> Post([FromBody] ToggleState value)
         {
@@ -87,7 +63,7 @@ namespace TogglerApi.Controllers
             return CreatedAtAction(nameof(Get), new { id = value.Id }, value);
         }
 
-        // PUT api/toggle/state
+        // PUT api/ToggleState
         [HttpPut]
         public async Task<IActionResult> Put(long id, [FromBody] ToggleState toggleState)
         {
@@ -129,7 +105,7 @@ namespace TogglerApi.Controllers
         /// Publish ToggleState updated message
         /// </summary>
         /// <param name="toggleState"></param>
-        public void PublishToggleState(ToggleState toggleState)
+        private void PublishToggleState(ToggleState toggleState)
         {
             RabbitMqClient.Publish(new TogglerStateMessage
             {
@@ -140,7 +116,7 @@ namespace TogglerApi.Controllers
         }
 
 
-        // DELETE api/toggle/state/5
+        // DELETE api/ToggleState/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(long id)
         {

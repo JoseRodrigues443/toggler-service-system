@@ -10,8 +10,8 @@ using TogglerApi.Context;
 namespace TogglerApi.Migrations
 {
     [DbContext(typeof(ToggleContext))]
-    [Migration("20190917221521_ToggleAndServiceKeyRestriction")]
-    partial class ToggleAndServiceKeyRestriction
+    [Migration("20190917224016_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
