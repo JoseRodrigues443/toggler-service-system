@@ -23,9 +23,12 @@ export class TogglerList extends Component<TogglerListProps, TogglerListState> {
     render() {
         const toggles = this.props.toggles;
         const cards = this.buildCards(toggles)
-        return <Accordion defaultActiveKey="0">
-            {cards}
-        </Accordion>
+        return <>
+            <Accordion defaultActiveKey="0">
+                {cards}
+            </Accordion>
+            <br/>
+        </>
     }
 
     /**

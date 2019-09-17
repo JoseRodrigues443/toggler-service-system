@@ -3,12 +3,12 @@ import React from 'react';
 // Components
 import { Jumbotron, Container } from "react-bootstrap";
 
-const Home: React.FC = (props) => {
+const About: React.FC = (props) => {
   return (
-    <div className="Home">
+    <div className="About">
       <Jumbotron fluid>
         <Container>
-          <h1>Toggler Manager</h1>
+          <h1>About</h1>
           <p>
             Toggle Pattern implementation
           </p>
@@ -18,4 +18,4 @@ const Home: React.FC = (props) => {
   );
 }
 
-export default Home;
+export default About;

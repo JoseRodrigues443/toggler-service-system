@@ -14,13 +14,14 @@ const Navbar: React.FC = (props) => {
                         <Nav.Link href="/services">Services</Nav.Link>
                     </Nav>
                     <Nav>
-                        <Nav.Link href="/example">Example</Nav.Link>
+                        <Nav.Link href="/example/toggler">Example</Nav.Link>
                     </Nav>
                     <Nav>
                         <Nav.Link href="/about">About</Nav.Link>
                     </Nav>
                 </BtsNavbar.Collapse>
             </BtsNavbar>
+            <br/>
         </div>
     );
 }

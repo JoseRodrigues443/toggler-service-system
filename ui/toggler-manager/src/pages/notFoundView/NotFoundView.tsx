@@ -3,19 +3,19 @@ import React from 'react';
 // Components
 import { Jumbotron, Container } from "react-bootstrap";
 
-const Home: React.FC = (props) => {
+const NotFoundView: React.FC = (props) => {
   return (
-    <div className="Home">
+    <div className="About">
       <Jumbotron fluid>
         <Container>
-          <h1>Toggler Manager</h1>
-          <p>
-            Toggle Pattern implementation
-          </p>
+          <h1>Not Found</h1>
+          <h3>
+            404 - Page Not Found
+          </h3>
         </Container>
       </Jumbotron>
     </div>
   );
 }
 
-export default Home;
+export default NotFoundView;

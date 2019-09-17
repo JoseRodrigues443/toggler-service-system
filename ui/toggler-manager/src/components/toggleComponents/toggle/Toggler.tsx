@@ -1,5 +1,5 @@
 import React, { Component } from 'react'; // let's also import Component
-import { ToggleStateClient, ToggleClient, ToggleState } from "../../../sdk/togglerApiClient/TogglerApi"
+import { ToggleStateClient, ToggleClient, ToggleState, IToggle, IToggleState } from "../../../sdk/togglerApiClient/TogglerApi"
 
 type ToggleManagerState = {
     isToShow: boolean
@@ -13,7 +13,11 @@ type ToggleManagerProp = {
     /**
      * The toggle to access
      */
-    toggle: string
+    toggle: string,
+    /**
+     * Change output
+     */
+    onStateChange: (state: IToggleState) => void
 }
 
 /**
@@ -26,12 +30,37 @@ export class Toggler extends Component<ToggleManagerProp, ToggleManagerState> {
      */
     private readonly toggleStateClient = new ToggleStateClient();
 
+
+    /**
+     * Toggle state of toggler
+     */
+    public toggleState: IToggleState | null = null;
+
+    /**
+     * Creates an instance of toggler.
+     * @param props 
+     */
+    constructor(props: ToggleManagerProp) {
+        super(props);
+        this.state = {
+            isToShow: false // default is false
+        }
+    }
+
     /**
      * Inits toggle manager
      */
     public async init() {
-        const toggleState: ToggleState = await this.toggleStateClient.getRelation(this.props.toggle, this.props.service);
-        this.setState({ isToShow: toggleState.value });
+        try {
+            this.toggleState = await this.toggleStateClient.getRelation(this.props.toggle, this.props.service);
+            if (this.toggleState) {
+                this.setState({ isToShow: this.toggleState.value });
+                this.props.onStateChange(this.toggleState);
+            }
+        } catch (error) {
+            console.log(error);
+            this.setState({ isToShow: false }); // does not exist, close
+        }
     }
 
     /**
@@ -46,7 +75,7 @@ export class Toggler extends Component<ToggleManagerProp, ToggleManagerState> {
      * @returns  
      */
     render() {
-        // if is to show
+        // if is to show, then return the children to send
         return this.state.isToShow === true ? this.props.children : null;
     }
 }
