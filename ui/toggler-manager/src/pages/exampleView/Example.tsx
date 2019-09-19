@@ -15,6 +15,7 @@ import { EditRelationModal } from "../../components/serviceComponents/createEdit
 
 
 
+
 /**
  * Toggle manager
  */
@@ -42,36 +43,77 @@ export class Example extends Component<{}, IToggleState> {
 
 
   public async init() {
+    let service: Service | null = null;
+    let toggle: Toggle | null = null;
     try {
-      const toggle = await this.toggleClient.post(
-        new Toggle({
-          createdAt: new Date(),
-          updatedAt: new Date(),
-          description: "Test Toggle",
-          key: "isToShowTest"
-        })
-      );
-      const service = await this.serviceClient.post(
-        new Service({
-          key: "TestService",
-          description: "Test Service"
-        })
-      );
-      if (service && service.id && toggle && toggle.id) {
-        this.toggleState = await this.toggleStateClient.post(
-          new ToggleState({
-            serviceId: service.id,
-            toggleId: toggle.id,
-            value: false
-          })
-        );
-        this.setState(this.toggleState);
-      } else {
-        alert("Alert error on example scenario creation");
-      }
+      toggle = await this.createToggle();
     } catch (error) {
       console.log(error);
     }
+    try {
+      service = await this.createService();
+    } catch (error) {
+      console.log(error);
+    }
+    try {
+      toggle = await this.createToggle();
+    } catch (error) {
+      console.log(error);
+    }
+    try {
+      this.toggleState = await this.createToggleState(service, toggle);
+      this.setState(this.toggleState);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  /**
+   * Creates toggle state
+   * @param service 
+   * @param toggle 
+   * @returns toggle state 
+   */
+  public async createToggleState(service: Service | null, toggle: Toggle | null): Promise<ToggleState | null> {
+    if (service && service.id && toggle && toggle.id) {
+      return await this.toggleStateClient.post(
+        new ToggleState({
+          serviceId: service.id,
+          toggleId: toggle.id,
+          value: false
+        })
+      );
+    } else {
+      alert("Alert error on example scenario creation");
+    }
+    return Promise.resolve(null);
+  }
+  /**
+   * Creates service
+   * @returns  
+   */
+  public async createService(): Promise<Service> {
+    return await this.serviceClient.post(
+      new Service({
+        key: "TestService",
+        description: "Test Service"
+      })
+    );
+  }
+
+  /**
+   * Creates toggle
+   * @returns  
+   */
+  public async createToggle(): Promise<Toggle> {
+    return await this.toggleClient.post(
+      new Toggle({
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        description: "Test Toggle",
+        key: "isToShowTest"
+      })
+    );
   }
 
   /**
@@ -132,6 +174,8 @@ export class Example extends Component<{}, IToggleState> {
           </Button>
           {/* <EditRelationModal toggleStateId="1"/> */}
           <br /> <br />
+          <h4>Toggle State JSON:</h4>
+          <hr />
           {this.toggleState != null ? <ReactJson src={this.toggleState as any} /> : null}
         </Container>
       </div>

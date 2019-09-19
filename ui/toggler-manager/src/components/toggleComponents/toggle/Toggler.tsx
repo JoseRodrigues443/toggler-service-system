@@ -1,5 +1,10 @@
 import React, { Component } from 'react'; // let's also import Component
+
+// Client
 import { ToggleStateClient, ToggleClient, ToggleState, IToggle, IToggleState } from "../../../sdk/togglerApiClient/TogglerApi"
+
+// rabbit MQ
+
 
 type ToggleManagerState = {
     isToShow: boolean
@@ -29,6 +34,8 @@ export class Toggler extends Component<ToggleManagerProp, ToggleManagerState> {
      * Toggle state client of toggler
      */
     private readonly toggleStateClient = new ToggleStateClient();
+
+
 
 
     /**

@@ -16,9 +16,9 @@ docker-compose up
 
 Open browser on:
 
-- [Open Api Documentation of the Toggler API](http://localhost:5000/swagger/index.html) 
 - [Toggler Manager - React Page](http://localhost:5001/) 
 - [Toggler Manager - React Page with The Toggler Example](http://localhost:5001/example) 
+- [Open Api Documentation of the Toggler API](http://localhost:5000/swagger/index.html) 
 
 Rest Requests:
 
@@ -34,7 +34,7 @@ Rest Requests:
 
 
 ## License
-[GPL4](https://choosealicense.com/licenses/gpl-3.0/#)
+[GPL3](https://choosealicense.com/licenses/gpl-3.0/#)
 
 
 
