@@ -2,6 +2,8 @@ import React, { Component } from 'react'; // let's also import Component
 
 // Client
 import { ToggleStateClient, ToggleClient, ToggleState, IToggle, IToggleState } from "../../../sdk/togglerApiClient/TogglerApi"
+import { ReceiverAccessLayer } from './accessLayer';
+// import ListenerAccessLayer from './listenerAccessLayer';
 
 // rabbit MQ
 
@@ -36,8 +38,6 @@ export class Toggler extends Component<ToggleManagerProp, ToggleManagerState> {
     private readonly toggleStateClient = new ToggleStateClient();
 
 
-
-
     /**
      * Toggle state of toggler
      */
@@ -49,6 +49,8 @@ export class Toggler extends Component<ToggleManagerProp, ToggleManagerState> {
      */
     constructor(props: ToggleManagerProp) {
         super(props);
+        // service key is the channel/queue to listen
+        // this.receiverAccessLayer = new ReceiverAccessLayer(props.service);
         this.state = {
             isToShow: false // default is false
         }

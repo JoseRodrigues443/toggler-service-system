@@ -112,6 +112,15 @@ namespace TogglerApi
                         .Build()
             );
 
+
+            app.UseWebSockets(
+                new WebSocketOptions()
+                {
+                    KeepAliveInterval = TimeSpan.FromSeconds(120),
+                    ReceiveBufferSize = 4 * 1024
+                }
+            );
+
             app.UseHttpsRedirection();
             app.UseMvc();
         }

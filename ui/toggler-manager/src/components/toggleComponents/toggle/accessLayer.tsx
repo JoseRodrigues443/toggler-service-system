@@ -1,9 +1,16 @@
-export class ReceiverAccessLayer {
+import * as amqp from "amqplib/callback_api";
 
-    /**
-     * RabbitMQ access layer of toggler
-     */
-    public readonly amqp = require('amqplib/callback_api');
+
+
+/**
+ * Receiver access layer
+ * 
+ * **WARNING:**
+ * - amqp only works on a NodeJS ENV (network dependencies that does not exist in the browser)
+ *      - This is useful in server side rendering were the NodeJS env is available
+ * - as an alternative, stomp is used as a layer to access in the browser
+ */
+export class ReceiverAccessLayer {
 
     /**
      * Channel  of receiver access layer
@@ -19,7 +26,7 @@ export class ReceiverAccessLayer {
      * @param access 
      */
     public openConnection(queue: string, access: string = 'amqp://localhost') {
-        this.amqp.connect(access, (error0: any, connection: any) => {
+        amqp.connect(access, (error0: any, connection: any) => {
             if (error0) {
                 throw error0;
             }
