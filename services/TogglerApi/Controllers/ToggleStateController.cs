@@ -126,7 +126,12 @@ namespace TogglerApi.Controllers
             await _toggleContext.SaveChangesAsync();
 
             // publish toggleState change
-            this.PublishToggleState(toggleState);
+            this.PublishToggleState(
+                _toggleContext.States.Where(s => s.Id == toggleState.Id)
+                    .Include(s => s.Service)
+                    .Include(s => s.Toggle)
+                    .FirstOrDefault()
+            );
 
             return NoContent(); // 204 (No Content), according to HTTP specification
         }
@@ -138,12 +143,18 @@ namespace TogglerApi.Controllers
         /// <param name="toggleState"></param>
         private void PublishToggleState(ToggleState toggleState)
         {
-            RabbitMqClient.Publish(new TogglerStateMessage
+            if (toggleState != null && toggleState.Toggle != null && toggleState.Service != null)
             {
-                ToggleKey = toggleState.Toggle.Key,
-                Value = toggleState.Value,
-                ServiceKey = toggleState.Service.Key
-            }, toggleState.Service.Key);
+                RabbitMqClient.Publish(
+                    new TogglerStateMessage
+                    {
+                        ToggleKey = toggleState.Toggle.Key,
+                        Value = toggleState.Value,
+                        ServiceKey = toggleState.Service.Key
+                    },
+                    toggleState.Service.Key
+                );
+            }
         }
 
 

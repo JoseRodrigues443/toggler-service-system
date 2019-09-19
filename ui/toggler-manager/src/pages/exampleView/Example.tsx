@@ -88,6 +88,15 @@ export class Example extends Component<{}, IToggleState> {
     }
     return Promise.resolve(null);
   }
+
+  handleChange = async (state: ToggleState, value: boolean) => {
+    if (state && state.id && this.state.id) {
+      state.value = value;
+      await this.toggleStateClient.patch(state.id, state);
+    }
+  }
+
+
   /**
    * Creates service
    * @returns  
@@ -169,9 +178,8 @@ export class Example extends Component<{}, IToggleState> {
           </Row>
           <hr />
           <br />
-          <Button block variant="secondary">
-            Toggle
-          </Button>
+          <EditRelationModal state={this.toggleState as ToggleState} onChange={this.handleChange} />
+          <br />
           {/* <EditRelationModal toggleStateId="1"/> */}
           <br /> <br />
           <h4>Toggle State JSON:</h4>

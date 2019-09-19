@@ -39,8 +39,8 @@ namespace TogglerApi.Context
             // States
             context.States.AddRange(states);
 
-
-            return true;
+            // Saved all with success
+            return context.SaveChanges() == (toggles.Count + services.Count + states.Count);
         }
 
         /// <summary>

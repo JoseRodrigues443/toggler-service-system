@@ -51,14 +51,24 @@ export class ReceiverAccessLayer {
                 console.log(" [*] Waiting for messages in %s.", q.queue);
                 channel.bindQueue(q.queue, exchange, '');
 
-                channel.consume(q.queue, function (msg: any) {
-                    if (msg.content) {
-                        console.log(" [x] %s", msg.content.toString());
-                    }
+                channel.consume(q.queue, (msg: any) => {
+                    this.handleMessage(msg);
                 }, {
                     noAck: true
                 });
             });
         });
+    }
+
+
+    /**
+     * Handles message
+     * @param msg 
+     * @returns message 
+     */
+    public handleMessage(msg: any): any {
+        if (msg.content) {
+            console.log(" [x] %s", msg.content.toString());
+        }
     }
 }

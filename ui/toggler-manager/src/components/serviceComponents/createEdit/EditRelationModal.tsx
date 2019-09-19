@@ -22,6 +22,14 @@ export const EditRelationModal: React.FC<Props> = (props) => {
     }
   }
 
+  const form = props.state != null && props.state.value != null ?
+    <Form>
+      <Form.Check onChange={handleChange}
+        type="checkbox"
+        defaultChecked={props.state.value}
+        label="Value"
+      />
+    </Form> : <p>No State Loaded</p>;
 
   return (
     <>
@@ -33,13 +41,7 @@ export const EditRelationModal: React.FC<Props> = (props) => {
           <Modal.Title>Add Relation</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form>
-            <Form.Check onChange={handleChange}
-              type="checkbox"
-              defaultChecked={props.state.value}
-              label="Value"
-            />
-          </Form>
+          {form}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
