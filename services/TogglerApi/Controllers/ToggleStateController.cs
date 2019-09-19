@@ -81,6 +81,14 @@ namespace TogglerApi.Controllers
         [HttpPost]
         public async Task<ActionResult<ToggleState>> Post([FromBody] ToggleState value)
         {
+            var toggleState = _toggleContext.States
+                .Where(state => state.ToggleId == value.ToggleId)
+                .Where(state => state.ServiceId == value.ServiceId)
+                .FirstOrDefault();
+            if (toggleState != null)
+            {
+                return CreatedAtAction(nameof(Get), new { id = toggleState.Id }, toggleState);
+            }
             _toggleContext.States.Add(value);
             await _toggleContext.SaveChangesAsync();
             return CreatedAtAction(nameof(Get), new { id = value.Id }, value);

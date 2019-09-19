@@ -70,7 +70,7 @@ namespace TogglerApi
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
-                 .AddJsonOptions(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);;
+                 .AddJsonOptions(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore); ;
 
         }
 
@@ -92,6 +92,7 @@ namespace TogglerApi
                 using (var context = serviceScope.ServiceProvider.GetService<ToggleContext>())
                 {
                     context.Database.Migrate();
+                    Seeder.SeedModel(context);
                 }
             }
 

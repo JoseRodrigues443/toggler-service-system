@@ -74,6 +74,13 @@ namespace TogglerApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Service>> Post([FromBody] Service value)
         {
+            if (value != null && value.Key != null)
+            {
+                var service = _toggleContext.Services.Where(s => s.Key == value.Key).FirstOrDefault();
+                if (service != null) {
+                    return CreatedAtAction(nameof(Get), new { id = service.Id }, service);
+                }
+            }
             _toggleContext.Services.Add(value);
             await _toggleContext.SaveChangesAsync();
             return CreatedAtAction(nameof(Get), new { id = value.Id }, value);

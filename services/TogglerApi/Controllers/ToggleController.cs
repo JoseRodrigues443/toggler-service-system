@@ -75,6 +75,14 @@ namespace TogglerApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Toggle>> Post([FromBody] Toggle value)
         {
+            if (value != null && value.Key != null)
+            {
+                var toggle = _toggleContext.Toggles.Where(t => t.Key == value.Key).FirstOrDefault();
+                if (toggle != null)
+                {
+                    return CreatedAtAction(nameof(Get), new { id = toggle.Id }, toggle);
+                }
+            }
             _toggleContext.Toggles.Add(value);
             await _toggleContext.SaveChangesAsync();
             return CreatedAtAction(nameof(Get), new { id = value.Id }, value);
