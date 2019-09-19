@@ -1,0 +1,66 @@
+version: "3.7"
+
+services:
+  stomp:
+    image: itzg/rabbitmq-stomp
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+      - "61613:61613"
+  # PERSISTENCE
+  mssql:
+    image: "mcr.microsoft.com/mssql/server"
+    container_name: mssql
+    restart: on-failure
+    environment:
+      SA_PASSWORD: "TOGGLER_API_12345"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    volumes:
+      - ./mssql_volume:/var/opt/mssql
+
+  # Communication layer
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    restart: on-failure
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    volumes:
+      - ./rabbitmq_volume:/var/lib/rabbitmq/mnesia
+
+  # API
+  api:
+    build:
+      context: ./services/TogglerApi
+      dockerfile: Dockerfile
+    container_name: toggler_api
+    restart: on-failure
+    ports:
+      - "5000:80"
+    depends_on:
+      - mssql
+      - rabbitmq
+    # this allows to wait for the mssql build, to init the DbSet contexts
+    command:
+      [
+        "./wait-for-it.sh",
+        "--timeout=0",
+        "mssql:1433",
+        "--",
+        "dotnet",
+        "TogglerApi.dll",
+      ]
+  # REACT CLIENT
+  client:
+    build:
+      context: ./ui/toggler-manager
+      dockerfile: Dockerfile
+    container_name: toggler_ui
+    restart: on-failure
+    depends_on:
+      - api
+    ports:
+      - "5001:3000"
