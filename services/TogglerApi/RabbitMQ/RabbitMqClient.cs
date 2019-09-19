@@ -16,7 +16,7 @@ namespace TogglerApi.RabbitMQ
         /// <param name="message"></param>
         /// <param name="queue"></param>
         /// <param name="hostname"></param>
-        public static void Publish(IMessage message, string queue = "app_toggles", string hostname = "localhost")
+        public static void Publish(IMessage message, string queue = "app_toggles", string hostname = "rabbitmq")
         {
             var factory = new ConnectionFactory() { HostName = hostname };
             using (var connection = factory.CreateConnection())

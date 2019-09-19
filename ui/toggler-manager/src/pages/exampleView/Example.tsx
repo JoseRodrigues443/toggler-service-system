@@ -182,9 +182,13 @@ export class Example extends Component<{}, IToggleState> {
           <br />
           {/* <EditRelationModal toggleStateId="1"/> */}
           <br /> <br />
-          <h4>Toggle State JSON:</h4>
-          <hr />
-          {this.toggleState != null ? <ReactJson src={this.toggleState as any} /> : null}
+          {this.toggleState != null ?
+            <>
+              <h4>Toggle State JSON:</h4>
+              <hr />
+              <ReactJson src={this.toggleState as any} />
+            </>
+            : null}
         </Container>
       </div>
     );

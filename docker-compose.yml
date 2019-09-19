@@ -1,8 +1,4 @@
-version: "3.4"
-
-networks:
-  base-network:
-    driver: bridge
+version: "3.7"
 
 services:
   # PERSISTENCE
@@ -17,8 +13,6 @@ services:
       - "1433:1433"
     volumes:
       - ./mssql_volume:/var/opt/mssql
-    networks:
-      - base-network
 
   # Communication layer
   rabbitmq:
@@ -30,8 +24,7 @@ services:
       - "5672:5672"
     volumes:
       - ./rabbitmq_volume:/var/lib/rabbitmq/mnesia
-    networks:
-      - base-network
+
   # API
   api:
     build:
@@ -41,8 +34,6 @@ services:
     restart: on-failure
     ports:
       - "5000:80"
-    networks:
-      - base-network
     depends_on:
       - mssql
       - rabbitmq
@@ -67,5 +58,3 @@ services:
       - api
     ports:
       - "5001:3000"
-volumes:
-  db_volume:

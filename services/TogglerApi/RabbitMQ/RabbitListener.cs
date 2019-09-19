@@ -53,7 +53,7 @@ namespace TogglerApi.RabbitMQ
         /// Constructor
         /// </summary>
         /// <param name="hostName"></param>
-        public RabbitListener(string hostName = "localhost")
+        public RabbitListener(string hostName = "rabbitmq")
         {
             this.factory = new ConnectionFactory() { HostName = hostName };
             this.connection = factory.CreateConnection();
