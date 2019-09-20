@@ -1,0 +1,36 @@
+@startuml TogglerDomain
+
+title Toggler Domain
+
+
+rectangle {
+
+
+    class Toggle {
+        +Int Id
+        +String Key
+        +String Description
+    }
+
+    class ToggleState {
+        +Int Id
+        +Bool Value
+        +Int ToggleId
+        +Int ServiceId
+    }
+
+    class Service {
+        +Int Id
+        +String Key
+        +String Description
+    }
+
+
+    ToggleState "1" *-up- "many" Toggle: Composition
+    ToggleState "1" *-up- "many" Service: Composition
+
+}
+
+
+
+@enduml

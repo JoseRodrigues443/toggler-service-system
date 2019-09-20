@@ -1,0 +1,54 @@
+@startuml
+
+title Packages - Component Diagram
+
+node Container {
+
+
+package "Toggler Manager" {
+    component [Graphic User\nInterface - React] as GUI
+}
+
+ 
+package "Toggler API" {
+    [Business Logic]
+    [Data Access] as DA
+    [Business Logic] -- ENDPOINT
+    DA -- Context
+    [Business Logic] --( Context
+} 
+
+queue RabbitMQ
+
+agent [RabbitMq Proxy Socket Stomp] as proxy
+
+
+GUI -down-> proxy
+proxy -up-> GUI
+proxy -down-> RabbitMQ
+RabbitMQ -up-> proxy
+
+node "Toggler Consumers" as consumers {
+    agent Service_n_1
+    agent Service_n_1
+    agent Service_n_3
+    agent Service_n
+} 
+
+consumers -- RabbitMQ
+
+database "MSSQL\n" {
+    [Data]
+}
+
+RabbitMQ -down-> [Business Logic] 
+[Business Logic]  -up-> RabbitMQ
+
+GUI --( ENDPOINT
+
+DA .. [Data]
+
+}
+
+
+@enduml

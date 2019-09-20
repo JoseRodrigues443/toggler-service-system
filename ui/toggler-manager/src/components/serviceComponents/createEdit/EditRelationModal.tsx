@@ -38,7 +38,7 @@ export const EditRelationModal: React.FC<Props> = (props) => {
       </Button>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Add Relation</Modal.Title>
+          <Modal.Title>Edit Value of the Toggle</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {form}
