@@ -1,12 +1,13 @@
 version: "3.7"
 
 services:
-  stomp:
-    image: itzg/rabbitmq-stomp
-    ports:
-      - "5672:5672"
-      - "15672:15672"
-      - "61613:61613"
+  # Future: add stomp as a javascript proxy for rabbitmq
+  # stomp:
+  #   image: itzg/rabbitmq-stomp
+  #   ports:
+  #     - "5672:5672"
+  #     - "15672:15672"
+  #     - "61613:61613"
   # PERSISTENCE
   mssql:
     image: "mcr.microsoft.com/mssql/server"
