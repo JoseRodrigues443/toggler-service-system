@@ -1,5 +1,6 @@
 # Toggler Service System
 
+Manages feature toggles for different services
 
 ## Installation
 
@@ -167,3 +168,14 @@ ToggleAPI
     └───scripts
 
 ```
+
+
+## Domain
+
+![Domain Diagram](https://www.plantuml.com/plantuml/svg/hP4z2uCm48Rt_8eZOuj3rqxIkaX7I_SG3mdaGv9JaDB_tcXZgmXElINSyzvx7oGF93nrHiFTDOr6NpWZb6MC56cS8SoKUPGaR6JmZ1d4a5g4a0eZX1J7qXAKzI-lo2lRm0s73IimIAzQKivEsclRkI91k-qlpcbu2DtXkkPZNrQEj4BVApdZrRma_U-KwLrUmKyS3bdNPi2Di0DFuXckphGkgAzvrvJsNBlOE8_bQElufMy0)
+
+## Deployment - Components
+
+![Domain Diagram](
+https://www.plantuml.com/plantuml/svg/bLAnRi8m4DtlAqvCNO9KTQz8cmeX0GK24w3AEDSq0knWEorLnR_t79mmG8Tci78lvtlltalFEc5SjTy1kCBj22T2RaLE5YDyrljIAr8EaqBaHkm1bCw8SUL4eSZW3m2KvmlOcUiytp4u4efhq-6lo8zifopxHfGVXSI59RDI0-N8l0j9J3KZ8TqQXSN-OW0d0BoU6qy6pSpbKsLPWBKur7aXrsSm4KvWB2NZzQWaljcCKOGlusJoEXZFwuOazf3VYexkhojtRSC90GuLLOGpiTaKRZG5OA5-mG0SS6BqyHjJBRVaC7LiGQsez31xnajYbEal5Jq6h3ungaf6l0MX3ZqjKVCIEiEyEfNM9zPfgpqPs_6Kigc2TMUbAPdFGjARUhl_1_fm2wtzkB2manTRCava8ooB6wNfTBXIRO0-gxKF-h9HsFNAUxX2mlONdjfFZgYD5JZJRhUXyJpG8vNnV_uB)
+
