@@ -65,9 +65,14 @@ Rest Requests:
 
 
 ## Notes
+
 - Toggler API service keeps waiting till mssql container ready to accept connections. This waiting feature was implemented with wait-for-it.
 (https://github.com/vishnubob/wait-for-it)
 - mssql and rabbitmq volumes, exist and are active by default in **docker-compose.yml**
+- [Used Bootstrap Theme](https://bootswatch.com/journal/)
+
+> Bootstrap Note: Bootstrap was used because is a well known UI library, easy to understand how the things were made.
+> > No JQuery is used, the **react-bootstrap** removes the JQuery dependency
 
 ---
 
