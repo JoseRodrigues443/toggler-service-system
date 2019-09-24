@@ -1,13 +1,6 @@
 version: "3.7"
 
 services:
-  # Future: add stomp as a javascript proxy for rabbitmq
-  # stomp:
-  #   image: itzg/rabbitmq-stomp
-  #   ports:
-  #     - "5672:5672"
-  #     - "15672:15672"
-  #     - "61613:61613"
   # PERSISTENCE
   mssql:
     image: "mcr.microsoft.com/mssql/server"
@@ -21,9 +14,9 @@ services:
     volumes:
       - ./mssql_volume:/var/opt/mssql
 
-  # Communication layer
+  # Communication layer with stomp proxy enabled
   rabbitmq:
-    image: rabbitmq:3-management
+    image: itzg/rabbitmq-stomp
     container_name: rabbitmq
     restart: on-failure
     ports:
