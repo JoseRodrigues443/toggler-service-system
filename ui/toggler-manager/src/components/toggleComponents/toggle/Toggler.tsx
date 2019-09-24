@@ -1,11 +1,11 @@
 import React, { Component } from 'react'; // let's also import Component
 
+
+
 // Client
 import { ToggleStateClient, ToggleClient, ToggleState, IToggle, IToggleState } from "../../../sdk/togglerApiClient/TogglerApi"
 import { ReceiverAccessLayer } from './accessLayer';
-// import ListenerAccessLayer from './listenerAccessLayer';
-
-// rabbit MQ
+const SockJsClient = require('react-stomp');
 
 
 type ToggleManagerState = {
@@ -42,6 +42,11 @@ export class Toggler extends Component<ToggleManagerProp, ToggleManagerState> {
      * Toggle state of toggler
      */
     public toggleState: IToggleState | null = null;
+
+    /**
+     * Client ref of toggler
+     */
+    public clientRef: any = null;
 
     /**
      * Creates an instance of toggler.
@@ -85,7 +90,10 @@ export class Toggler extends Component<ToggleManagerProp, ToggleManagerState> {
      */
     render() {
         // if is to show, then return the children to send
-        return this.state.isToShow === true ? this.props.children : null;
+        return this.state.isToShow === false ? null :
+            <>
+                {this.props.children}
+            </>
     }
 }
 
